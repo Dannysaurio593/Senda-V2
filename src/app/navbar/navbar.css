@@ -1,3 +1,8 @@
+/* Sombra sutil debajo del navbar */
+.navbar {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
 /* Estilos para los links del navbar en reposo */
 .navbar-light .navbar-nav .nav-link {
   color: #2E5481 !important;
