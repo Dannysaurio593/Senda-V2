@@ -1,0 +1,14 @@
+/* Estilos para los links del navbar en reposo */
+.navbar-light .navbar-nav .nav-link {
+  color: #2E5481 !important;
+}
+
+/* Estilos para los links del navbar en hover */
+.navbar-light .navbar-nav .nav-link:hover {
+  color: #5A6B7B !important;
+}
+
+/* Estilos para el link activo */
+.navbar-light .navbar-nav .nav-link.active {
+  color: #00A4D3 !important;
+}
