@@ -1,0 +1,78 @@
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    
+    <div class="col-md-5 mb-4">
+      <div class="card shadow border-0 h-100" style="border-radius: 15px;">
+        <div class="card-header bg-primary text-white py-3" style="border-radius: 15px 15px 0 0;">
+          <h5 class="mb-0">🩺 Registrar Signos Vitales</h5>
+        </div>
+        <div class="card-body p-4">
+          
+          <div class="mb-3">
+            <label class="form-label fw-bold text-secondary">Presión Arterial (PA)</label>
+            <input type="text" class="form-control form-control-lg" [(ngModel)]="presionArterial" placeholder="Ej: 120/80">
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label fw-bold text-secondary">Temperatura (°C)</label>
+            <input type="number" class="form-control form-control-lg" [(ngModel)]="temperatura" step="0.1">
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label fw-bold text-secondary">Frecuencia Cardíaca (RPR)</label>
+            <input type="number" class="form-control form-control-lg" [(ngModel)]="pulso">
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label fw-bold text-secondary">Síntomas o Notas Adicionales</label>
+            <textarea class="form-control" rows="3" [(ngModel)]="notasSintomas" placeholder="¿Cómo se siente el paciente hoy?"></textarea>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-5 mb-4">
+      <div class="card shadow border-0 bg-dark text-white h-100" style="border-radius: 15px;">
+        <div class="card-header bg-secondary py-3 text-center" style="border-radius: 15px 15px 0 0;">
+          <h5 class="mb-0 text-white">📋 Reporte Digital para el Médico</h5>
+        </div>
+        <div class="card-body p-4 d-flex flex-column justify-content-between">
+          
+          <div>
+            <p class="text-muted small border-bottom border-secondary pb-2">TELEMONITOREO EN TIEMPO REAL</p>
+            
+            <div class="mb-3">
+              <span class="text-secondary d-block small text-uppercase">Estado de Presión:</span>
+              <span class="fs-4 fw-bold text-info">{{ presionArterial }} mmHg</span>
+            </div>
+
+            <div class="mb-3">
+              <span class="text-secondary d-block small text-uppercase">Temperatura Corporal:</span>
+              <span class="fs-4 fw-bold" [class.text-danger]="temperatura >= 38" [class.text-success]="temperatura < 38">
+                {{ temperatura }} °C 
+                <small class="fs-6 fw-normal text-muted" *ngIf="temperatura >= 38">(Alerta: Fiebre)</small>
+              </span>
+            </div>
+
+            <div class="mb-3">
+              <span class="text-secondary d-block small text-uppercase">Ritmo Cardíaco:</span>
+              <span class="fs-4 fw-bold text-warning">{{ pulso }} ppm</span>
+            </div>
+
+            <div class="mb-3">
+              <span class="text-secondary d-block small text-uppercase">Observaciones de Sintomatología:</span>
+              <p class="fst-italic text-light bg-secondary p-3 rounded" style="min-height: 80px;">
+                {{ notasSintomas || 'Esperando notas del paciente...' }}
+              </p>
+            </div>
+          </div>
+
+          <button class="btn btn-info w-100 fw-bold mt-3">Enviar Reporte a Senda Clínicas</button>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
