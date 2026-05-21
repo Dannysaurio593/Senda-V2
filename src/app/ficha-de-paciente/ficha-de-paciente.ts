@@ -11,9 +11,9 @@ export class FichaDePaciente {
   nombrePaciente: string = 'Carlos Eduardo Mendoza';
   codigoExpediente: string = 'SENDA-2026-8834';
   edad: number = 42;
+  tipoSangre: string = 'O Positivo (O+)';
   
   // DATOS MÉDICOS CRÍTICOS
-  tipoSangre: string = 'O Positivo (O+)';
   contactoEmergencia: string = 'María Laura Mendoza (Esposa)';
   telefonoEmergencia: string = '098 765 4321';
   

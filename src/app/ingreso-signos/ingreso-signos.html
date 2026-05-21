@@ -1,30 +1,35 @@
 <div class="container mt-4">
   <div class="row justify-content-center">
-    <p class="text-center"><b>Componente con Two-Way Data Binding.</b></p>
+    <h2 class="fw-bold text-center" style="color: #2E5481;">Ingreso de Signos Vitales</h2>
+    <p class="text-center">
+      Componente con Two-Way Data Binding.
+    </p>
+    
+    <!-- ========== CARD REGISTRO DE SIGNOS VITALES ========== -->
     <div class="col-md-5 mb-4">
       <div class="card shadow border-0 h-100" style="border-radius: 15px;">
-        <div class="card-header bg-primary text-white py-3" style="border-radius: 15px 15px 0 0;">
-          <h5 class="mb-0">🩺 Registrar Signos Vitales</h5>
+        <div class="card-header text-white py-3" style="border-radius: 15px 15px 0 0; background-color: #2e5481;">
+          <h5 class="mb-0 text-center">Registrar Signos Vitales</h5>
         </div>
-        <div class="card-body p-4">
+        <div class="card-body p-4" style="background-color: #F4F4F4;">
           
           <div class="mb-3">
-            <label class="form-label fw-bold text-secondary">Presión Arterial (PA)</label>
+            <label class="form-label fw-bold" style="color: #2E5481;">Presión Arterial (PA)</label>
             <input type="text" class="form-control form-control-lg" [(ngModel)]="presionArterial" placeholder="Ej: 120/80">
           </div>
 
           <div class="mb-3">
-            <label class="form-label fw-bold text-secondary">Temperatura (°C)</label>
+            <label class="form-label fw-bold" style="color: #2E5481;">Temperatura (°C)</label>
             <input type="number" class="form-control form-control-lg" [(ngModel)]="temperatura" step="0.1">
           </div>
 
           <div class="mb-3">
-            <label class="form-label fw-bold text-secondary">Frecuencia Cardíaca (RPR)</label>
+            <label class="form-label fw-bold" style="color: #2E5481;">Frecuencia Cardíaca (RPR)</label>
             <input type="number" class="form-control form-control-lg" [(ngModel)]="pulso">
           </div>
 
           <div class="mb-3">
-            <label class="form-label fw-bold text-secondary">Síntomas o Notas Adicionales</label>
+            <label class="form-label fw-bold" style="color: #2E5481;">Síntomas o Notas Adicionales</label>
             <textarea class="form-control" rows="3" [(ngModel)]="notasSintomas" placeholder="¿Cómo se siente el paciente hoy?"></textarea>
           </div>
 
@@ -32,43 +37,44 @@
       </div>
     </div>
 
+    <!-- ========== CARD REPORTE DIGITAL PARA EL MÉDICO ========== -->
     <div class="col-md-5 mb-4">
-      <div class="card shadow border-0 bg-dark text-white h-100" style="border-radius: 15px;">
-        <div class="card-header bg-secondary py-3 text-center" style="border-radius: 15px 15px 0 0;">
-          <h5 class="mb-0 text-white">📋 Reporte Digital para el Médico</h5>
+      <div class="card shadow border-0 h-100" style="border-radius: 15px; background-color: #f1f1f1; color: white;">
+        <div class="card-header py-3 text-center" style="border-radius: 15px 15px 0 0; background-color: #2e5481;">
+          <h5 class="mb-0">Reporte Digital para el Médico</h5>
         </div>
         <div class="card-body p-4 d-flex flex-column justify-content-between">
           
           <div>
-            <p class="text-muted small border-bottom border-secondary pb-2">TELEMONITOREO EN TIEMPO REAL</p>
+            <p class="small border-bottom pb-2" style="border-color: #2E5481; color: #5A6B7B;">TELEMONITOREO EN TIEMPO REAL</p>
             
             <div class="mb-3">
-              <span class="text-secondary d-block small text-uppercase">Estado de Presión:</span>
-              <span class="fs-4 fw-bold text-info">{{ presionArterial }} mmHg</span>
+              <span class="d-block small fw-bold" style="color: #2E5481;">Estado de Presión:</span>
+              <span class="fs-4 fw-bold" style="color: #00A4D3;">{{ presionArterial }} mmHg</span>
             </div>
 
             <div class="mb-3">
-              <span class="text-secondary d-block small text-uppercase">Temperatura Corporal:</span>
-              <span class="fs-4 fw-bold" [class.text-danger]="temperatura >= 38" [class.text-success]="temperatura < 38">
+              <span class="d-block small fw-bold" style="color: #2E5481;">Temperatura Corporal:</span>
+              <span class="fs-4 fw-bold" [class.text-danger]="temperatura >= 38" [style.color]="temperatura < 38 ? '#00A4D3' : '#d32f2f'">
                 {{ temperatura }} °C 
-                <small class="fs-6 fw-normal text-muted" *ngIf="temperatura >= 38">(Alerta: Fiebre)</small>
+                <small class="fs-6 fw-normal" style="color: #5A6B7B;" *ngIf="temperatura >= 38">(Alerta: Fiebre)</small>
               </span>
             </div>
 
             <div class="mb-3">
-              <span class="text-secondary d-block small text-uppercase">Ritmo Cardíaco:</span>
-              <span class="fs-4 fw-bold text-warning">{{ pulso }} ppm</span>
+              <span class="d-block small fw-bold" style="color: #2E5481;">Ritmo Cardíaco:</span>
+              <span class="fs-4 fw-bold" style="color: #F4A003;">{{ pulso }} ppm</span>
             </div>
 
             <div class="mb-3">
-              <span class="text-secondary d-block small text-uppercase">Observaciones de Sintomatología:</span>
-              <p class="fst-italic text-light bg-secondary p-3 rounded" style="min-height: 80px;">
+              <span class="d-block small fw-bold" style="color: #2E5481;">Observaciones de Sintomatología:</span>
+              <p class="fst-italic p-3 rounded border border-secondary" style="min-height: 80px; background-color: #ffffff; color: rgb(65, 64, 64);">
                 {{ notasSintomas || 'Esperando notas del paciente...' }}
               </p>
             </div>
           </div>
 
-          <button class="btn btn-info w-100 fw-bold mt-3">Enviar Reporte a Senda Clínicas</button>
+          <button class="btn w-100 fw-bold mt-3" style="background-color: #00A4D3; color: white; border: none;">Enviar Reporte a Senda Clínicas</button>
 
         </div>
       </div>
