@@ -1,16 +1,22 @@
-
 <div class="container">
   <div class="row">
     <div class="col mt-2">
-      <app-navbar></app-navbar>
+      <app-navbar [seccionActiva]="seccionActiva" (alCambiarPantalla)="seccionActiva = $event"></app-navbar>
     </div>
   </div>
 </div>
 
-<app-ficha-de-paciente></app-ficha-de-paciente>
-<app-ingreso-signos></app-ingreso-signos>
-
-<router-outlet />
+<div class="main-content py-4">
+  <div *ngIf="seccionActiva === 'home'" class="container">
+    <div class="row">
+      <div class="col mt-5">
+        <p><i class="bi-emoji-smile"></i> ¡Bienvenido a tu espacio de trabajo!<br><br> Aquí iremos agregando todos los componentes de nuestra web.</p>
+      </div>
+    </div>
+  </div>
+  <app-ficha-de-paciente *ngIf="seccionActiva === 'ficha'"></app-ficha-de-paciente>
+  <app-ingreso-signos *ngIf="seccionActiva === 'signos'"></app-ingreso-signos>
+</div>
 
 <div class="container">
   <div class="row">

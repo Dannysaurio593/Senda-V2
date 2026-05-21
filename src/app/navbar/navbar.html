@@ -9,16 +9,20 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
+          <button class="nav-link btn btn-link" [class.active]="seccionActiva === 'home'" (click)="mostrarHome()">Home</button>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Agendar Cita</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Ficha Médica</a>
+          <button class="nav-link btn btn-link" [class.active]="seccionActiva === 'ficha'" (click)="mostrarFicha()">
+           Ficha Médica
+          </button>
         </li>
-       <li class="nav-item">
-          <a class="nav-link" href="#">Signos Vitales</a>
+        <li class="nav-item">
+          <button class="nav-link btn btn-link" [class.active]="seccionActiva === 'signos'" (click)="mostrarSignos()">
+            Signos Vitales
+          </button>
         </li>
       </ul>
       <button class="btn btn-danger btn-lg" type="button" style="padding: 12px 50px; font-size: 18px; font-weight: bold;">SOS</button>
