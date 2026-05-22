@@ -9,9 +9,11 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './ingreso-signos.css',
 })
 export class IngresoSignos {
-  // Variables que se amarrarán a los inputs (Two-Way Data Binding)
-  presionArterial: string = '120/80';
-  temperatura: number = 36.5;
-  pulso: number = 75;
-  notasSintomas: string = '';
+  // Objeto que agrupa todos los signos vitales
+  signos = {
+    presionArterial: '120/80',
+    temperatura: 36.5,
+    pulso: 75,
+    notasSintomas: ''
+  };
 }

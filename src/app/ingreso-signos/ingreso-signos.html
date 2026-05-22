@@ -15,22 +15,22 @@
           
           <div class="mb-3">
             <label class="form-label fw-bold" style="color: #2E5481;">Presión Arterial (PA)</label>
-            <input type="text" class="form-control form-control-lg" [(ngModel)]="presionArterial" placeholder="Ej: 120/80">
+            <input type="text" class="form-control form-control-lg" [(ngModel)]="signos.presionArterial" placeholder="Ej: 120/80">
           </div>
 
           <div class="mb-3">
             <label class="form-label fw-bold" style="color: #2E5481;">Temperatura (°C)</label>
-            <input type="number" class="form-control form-control-lg" [(ngModel)]="temperatura" step="0.1">
+            <input type="number" class="form-control form-control-lg" [(ngModel)]="signos.temperatura" step="0.1">
           </div>
 
           <div class="mb-3">
             <label class="form-label fw-bold" style="color: #2E5481;">Frecuencia Cardíaca (RPR)</label>
-            <input type="number" class="form-control form-control-lg" [(ngModel)]="pulso">
+            <input type="number" class="form-control form-control-lg" [(ngModel)]="signos.pulso">
           </div>
 
           <div class="mb-3">
             <label class="form-label fw-bold" style="color: #2E5481;">Síntomas o Notas Adicionales</label>
-            <textarea class="form-control" rows="3" [(ngModel)]="notasSintomas" placeholder="¿Cómo se siente el paciente hoy?"></textarea>
+            <textarea class="form-control" rows="3" [(ngModel)]="signos.notasSintomas" placeholder="¿Cómo se siente el paciente hoy?"></textarea>
           </div>
 
         </div>
@@ -50,26 +50,26 @@
             
             <div class="mb-3">
               <span class="d-block small fw-bold" style="color: #2E5481;">Estado de Presión:</span>
-              <span class="fs-4 fw-bold" style="color: #00A4D3;">{{ presionArterial }} mmHg</span>
+              <span class="fs-4 fw-bold" style="color: #00A4D3;">{{ signos.presionArterial }} mmHg</span>
             </div>
 
             <div class="mb-3">
               <span class="d-block small fw-bold" style="color: #2E5481;">Temperatura Corporal:</span>
-              <span class="fs-4 fw-bold" [class.text-danger]="temperatura >= 38" [style.color]="temperatura < 38 ? '#00A4D3' : '#d32f2f'">
-                {{ temperatura }} °C 
-                <small class="fs-6 fw-normal" style="color: #5A6B7B;" *ngIf="temperatura >= 38">(Alerta: Fiebre)</small>
+              <span class="fs-4 fw-bold" [class.text-danger]="signos.temperatura >= 38" [style.color]="signos.temperatura < 38 ? '#00A4D3' : '#d32f2f'">
+                {{ signos.temperatura }} °C 
+                <small class="fs-6 fw-normal" style="color: #5A6B7B;" *ngIf="signos.temperatura >= 38">(Alerta: Fiebre)</small>
               </span>
             </div>
 
             <div class="mb-3">
               <span class="d-block small fw-bold" style="color: #2E5481;">Ritmo Cardíaco:</span>
-              <span class="fs-4 fw-bold" style="color: #F4A003;">{{ pulso }} ppm</span>
+              <span class="fs-4 fw-bold" style="color: #F4A003;">{{ signos.pulso }} ppm</span>
             </div>
 
             <div class="mb-3">
               <span class="d-block small fw-bold" style="color: #2E5481;">Observaciones de Sintomatología:</span>
               <p class="fst-italic p-3 rounded border border-secondary" style="min-height: 80px; background-color: #ffffff; color: rgb(65, 64, 64);">
-                {{ notasSintomas || 'Esperando notas del paciente...' }}
+                {{ signos.notasSintomas || 'Esperando notas del paciente...' }}
               </p>
             </div>
           </div>
