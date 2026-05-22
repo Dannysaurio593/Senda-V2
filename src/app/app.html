@@ -1,3 +1,4 @@
+<!-- Aquí COMIENZA el componente del HEADER -->
 <div class="container">
   <div class="row">
     <div class="col mt-2">
@@ -5,8 +6,9 @@
     </div>
   </div>
 </div>
-
+<!-- Aquí TERMINA el componente del HEADER -->
 <div class="main-content py-4">
+   <!-- Inicia un texto de muestra no es importante, pronto será borardo-->
   <div *ngIf="seccionActiva === 'home'" class="container">
     <div class="row">
       <div class="col mt-5">
@@ -14,10 +16,14 @@
       </div>
     </div>
   </div>
+ <!-- TERMINA EL texto de muestra no es importante, pronto será borardo-->
+ <!-- Desde aquí COMIENZAN los componentes, estoy en el app.html -->
   <app-ficha-de-paciente *ngIf="seccionActiva === 'ficha'"></app-ficha-de-paciente>
   <app-ingreso-signos *ngIf="seccionActiva === 'signos'"></app-ingreso-signos>
+  <!-- Aquí terminan los componentes -->
 </div>
 
+<!-- Aquí insertamos el componente del FOOTER -->
 <div class="container">
   <div class="row">
     <div class="col">
