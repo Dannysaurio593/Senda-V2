@@ -1,11 +1,27 @@
-import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { Navbar } from './navbar/navbar';
+import { Footer } from './footer/footer';
 
-import { routes } from './app.routes';
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  imports: [RouterOutlet, Navbar, Footer],
+  templateUrl: './app.html',
+  styleUrls: ['./app.css']
+})
+export class AppComponent {
+  
+  checkboxConfirmacion: boolean = false;
+  mostrarVentana: boolean = false;
 
-export const appConfig: ApplicationConfig = {
-  providers: [
-    provideBrowserGlobalErrorListeners(),
-    provideRouter(routes)
-  ]
-};
+  dispararAlerta() {
+    this.mostrarVentana = true;
+    this.checkboxConfirmacion = false;
+  }
+
+  cerrarVentana() {
+    this.mostrarVentana = false;
+  }
+  
+}

@@ -1,4 +1,3 @@
-
 <div class="container">
   <div class="row">
     <div class="col mt-2">
@@ -6,17 +5,48 @@
     </div>
   </div>
 </div>
-<!-- Mensaje de bienvenida para katel -->
-<div class="container">
-  <div class="row">
-    <div class="col mt-5">
-      <p><i class="bi-emoji-smile"></i> Hola Katel <i class="bi-emoji-laughing"></i><br><br> ¡Bienvenida a tu espacio de trabajo!<br><br> Aquí iremos agregando todos los componentes de nuestra web.
-<br><br>
-<b>Paso importante:</b> Antes de tirar la primera línea de código, recuerda crear tu propia rama. Una vez que estés parada en ella, puedes borrar este texto de bienvenida para que no te estorbe.
-<br><br>
-<b>Tu rama es tu caja de experimentos:</b> Puedes maquetar, probar ideas locas e incluso borrarlo todo si algo sale mal, ¡aquí no pasa nada y el main se mantiene sagrado e intacto! <br><br>Éxitos y adelante, ¡a hacer travesuras con tu rama!
-</p>   
-</div>
+
+<div class="container mb-5 mt-4">
+  <div class="row justify-content-center">
+    <div class="col-md-6 col-lg-4">
+      
+      <div class="card text-center shadow-sm p-4 border-0" style="border-radius: 20px; background-color: #f8f9fa;">
+        <div class="card-body">
+          
+          <div class="sos-circle mx-auto mb-3">
+            <h1 class="text-white fw-bold m-0" style="font-size: 2.5rem;">SOS</h1>
+          </div>
+
+          <h5 class="card-title fw-bold" style="color: #1e4570;">Enviar alerta SOS</h5>
+          <p class="card-text text-muted small mb-4">
+            Tus contactos de emergencia serán notificados de forma inmediata.
+          </p>
+
+          <div class="form-check d-flex justify-content-center align-items-center mb-3">
+            <input 
+              class="form-check-input me-2 mt-0" 
+              type="checkbox" 
+              id="checkEmergencia"
+              (change)="checkboxConfirmacion = !checkboxConfirmacion"
+              [checked]="checkboxConfirmacion"
+            >
+            <label class="form-check-label text-danger fw-bold small" for="checkEmergencia">
+              Confirmo emergencia médica
+            </label>
+          </div>
+
+          <button 
+            class="btn btn-danger btn-lg rounded-pill px-5 fw-bold shadow-sm"
+            [disabled]="!checkboxConfirmacion"
+            (click)="dispararAlerta()"
+          >
+            Solicitar Ambulancia
+          </button>
+
+        </div>
+      </div>
+
+    </div>
   </div>
 </div>
 
@@ -28,4 +58,55 @@
       <app-footer></app-footer>
     </div>
   </div>
+</div>
+
+<footer class="text-center text-lg-start mt-auto pt-4" style="background-color: #f8f9fa; border-top: 1px solid #e9ecef;">
+  <div class="container p-4">
+    <div class="row align-items-center">
+      
+      <div class="col-lg-6 col-md-12 mb-4 mb-md-0 text-start">
+        <h5 class="text-uppercase fw-bold mb-2" style="color: #1e4570;">Senda SOS</h5>
+        <p class="text-muted small mb-0">
+          Sistema de respuesta rápida para emergencias médicas. Tu seguridad y la de tus seres queridos es nuestra prioridad.
+        </p>
+      </div>
+
+      <div class="col-lg-6 col-md-12 text-lg-end text-start mt-3 mt-lg-0">
+        <span class="text-muted small">
+          © 2026 Senda. Actividad Grupal Angular.
+        </span>
+      </div>
+
+    </div>
+  </div>
+</footer>
+
+
+// Ventana emergente de confirmación//
+<div class="overlay-emergente" [class.d-none]="!mostrarVentana">
+  
+  <div class="card text-center shadow-lg border-0 p-4" style="border-radius: 20px; max-width: 400px; width: 90%;">
+    
+    <div class="mx-auto mb-3 d-flex justify-content-center align-items-center" 
+         style="width: 80px; height: 80px; background-color: #d1e7dd; border-radius: 50%;">
+      <h1 class="text-success m-0" style="font-size: 3rem;">✓</h1>
+    </div>
+
+    <h4 class="fw-bold" style="color: #1e4570;">¡Alerta enviada!</h4>
+    <p class="text-muted mt-2 mb-4">
+      Alertamos a tus contactos de emergencia y la ambulancia va en camino a tu ubicación actual. Mantén la calma, la ayuda está cerca.
+    </p>
+
+    <button class="btn btn-primary btn-lg rounded-pill fw-bold" 
+            style="background-color: #3a9f53; border-color: #45b962;"
+            (click)="cerrarVentana()">
+      Entendido
+    </button>
+
+    <p class="text-muted mt-2 mb-4" style="font-size: smaller; color: #094797;">
+      Si la situación cambia o necesitas cancelar la alerta, por favor contáctanos inmediatamente.
+    </p>
+
+  </div>
+
 </div>
