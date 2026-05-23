@@ -31,42 +31,55 @@
           </div>
 
           <div class="mb-3">
-            <label class="form-label fw-bold" style="color: #2E5481;">Síntomas o Notas Adicionales</label>
-            <textarea class="form-control" rows="3" [(ngModel)]="signos.notasSintomas" placeholder="¿Cómo se siente el paciente hoy?"></textarea>
-          </div>
-
-          <!-- IMPORTANTE: Selector de colores para alertas médicas -->
-          <hr style="border-color: #2E5481; opacity: 0.3;">
-          <p class="small fw-bold text-center" style="color: #2E5481;">⚙️ Personalizar Colores de Alertas</p>
-          
-          <div class="mb-2">
-            <label class="form-label fw-bold small" style="color: #00A4D3;">Color Temperatura Normal (&lt;38°C):</label>
-            <input type="color" class="form-control form-control-color" [(ngModel)]="signos.colorTempNormal" style="height: 40px;">
-            <small style="color: #666;">{{ signos.colorTempNormal }}</small>
-          </div>
-
-          <div class="mb-2">
-            <label class="form-label fw-bold small" style="color: #d32f2f;">Color Fiebre (≥38°C):</label>
-            <input type="color" class="form-control form-control-color" [(ngModel)]="signos.colorFiebre" style="height: 40px;">
-            <small style="color: #666;">{{ signos.colorFiebre }}</small>
-          </div>
-
-          <div class="mb-2">
-            <label class="form-label fw-bold small" style="color: #d32f2f;">Color Taquicardia (>100 ppm):</label>
-            <input type="color" class="form-control form-control-color" [(ngModel)]="signos.colorTaquicardia" style="height: 40px;">
-            <small style="color: #666;">{{ signos.colorTaquicardia }}</small>
-          </div>
-
-          <div class="mb-2">
-            <label class="form-label fw-bold small" style="color: #FFA500;">Color Bradicardia (&lt;60 ppm):</label>
-            <input type="color" class="form-control form-control-color" [(ngModel)]="signos.colorBradicardia" style="height: 40px;">
-            <small style="color: #666;">{{ signos.colorBradicardia }}</small>
+            <label class="form-label fw-bold" style="color: #2E5481;">¿Cómo se siente hoy?</label>
+            <!-- IMPORTANTE: Selector visual de estado de ánimo con caritas - CENTRADO -->
+            <div class="d-flex gap-2 mb-3 justify-content-center">
+              <!-- Carita: Muy Bien -->
+              <button type="button" class="btn btn-lg rounded-circle p-2" 
+                [style.backgroundColor]="signos.estadoAnimo === 'muy_bien' ? '#4CAF50' : '#e0e0e0'"
+                [style.color]="signos.estadoAnimo === 'muy_bien' ? 'white' : '#999'"
+                [style.border]="signos.estadoAnimo === 'muy_bien' ? '3px solid #2E5481' : 'none'"
+                (click)="signos.estadoAnimo = 'muy_bien'" 
+                title="Muy bien">
+                😄
+              </button>
+              
+              <!-- Carita: Bien -->
+              <button type="button" class="btn btn-lg rounded-circle p-2" 
+                [style.backgroundColor]="signos.estadoAnimo === 'bien' ? '#8BC34A' : '#e0e0e0'"
+                [style.color]="signos.estadoAnimo === 'bien' ? 'white' : '#999'"
+                [style.border]="signos.estadoAnimo === 'bien' ? '3px solid #2E5481' : 'none'"
+                (click)="signos.estadoAnimo = 'bien'" 
+                title="Bien">
+                🙂
+              </button>
+              
+              <!-- Carita: Regular -->
+              <button type="button" class="btn btn-lg rounded-circle p-2" 
+                [style.backgroundColor]="signos.estadoAnimo === 'regular' ? '#FF9800' : '#e0e0e0'"
+                [style.color]="signos.estadoAnimo === 'regular' ? 'white' : '#999'"
+                [style.border]="signos.estadoAnimo === 'regular' ? '3px solid #2E5481' : 'none'"
+                (click)="signos.estadoAnimo = 'regular'" 
+                title="Regular">
+                😐
+              </button>
+              
+              <!-- Carita: Muy Mal -->
+              <button type="button" class="btn btn-lg rounded-circle p-2" 
+                [style.backgroundColor]="signos.estadoAnimo === 'muy_mal' ? '#d32f2f' : '#e0e0e0'"
+                [style.color]="signos.estadoAnimo === 'muy_mal' ? 'white' : '#999'"
+                [style.border]="signos.estadoAnimo === 'muy_mal' ? '3px solid #2E5481' : 'none'"
+                (click)="signos.estadoAnimo = 'muy_mal'" 
+                title="Muy mal">
+                😟
+              </button>
+            </div>
+            <small style="color: #2E5481; font-weight: bold;">Estado seleccionado: {{ obtenerEmojiEstadoAnimo() }}</small>
           </div>
 
           <div class="mb-3">
-            <label class="form-label fw-bold small" style="color: #F4A003;">Color Normal (60-100 ppm):</label>
-            <input type="color" class="form-control form-control-color" [(ngModel)]="signos.colorNormal" style="height: 40px;">
-            <small style="color: #666;">{{ signos.colorNormal }}</small>
+            <label class="form-label fw-bold" style="color: #2E5481;">Síntomas o Notas Adicionales</label>
+            <textarea class="form-control" rows="3" [(ngModel)]="signos.notasSintomas" placeholder="¿Cómo se siente el paciente hoy?"></textarea>
           </div>
 
         </div>
@@ -86,31 +99,49 @@
             
             <div class="mb-3">
               <span class="d-block small fw-bold" style="color: #2E5481;">Estado de Presión:</span>
-              <!-- Data Binding: Interpolation muestra el valor ingresado en tiempo real -->
-              <span class="fs-4 fw-bold" style="color: #00A4D3;">{{ signos.presionArterial }} mmHg</span>
-            </div>
-
-            <div class="mb-3">
-              <span class="d-block small fw-bold" style="color: #2E5481;">Temperatura Corporal:</span>
-              <!-- IMPORTANTE: Uso de Directivas combinadas:
-                   [ngClass]: aplica clase 'text-danger' si temperatura >= 38
-                   [style.color]: cambia color dinámicamente según valor
-                   [ngSwitch]: muestra alerta solo si hay fiebre -->
-              <span class="fs-4 fw-bold" [class.text-danger]="signos.temperatura >= 38" [style.color]="signos.temperatura < 38 ? signos.colorTempNormal : signos.colorFiebre">
-                {{ signos.temperatura }} °C 
-                <small class="fs-6 fw-normal" style="color: #5A6B7B;" *ngIf="signos.temperatura >= 38" [ngSwitch]="true">
-                  <span *ngSwitchCase="signos.temperatura >= 38">(Alerta: Fiebre)</span>
+              <!-- IMPORTANTE: Uso de Directivas para presión arterial con 4 rangos:
+                   < 90/60: Hipotensión (Rojo)
+                   90/60-140/90: Normal (Celeste)
+                   140/90-160/100: Hipertensión (Rojo)
+                   > 160/100: Hipertensión crítica (Rojo) -->
+              <span class="fs-4 fw-bold" [style.color]="obtenerColorPresion()">
+                {{ signos.presionArterial }} mmHg
+                <!-- Muestra alerta si hay problema -->
+                <small class="fs-6 fw-normal" style="color: #5A6B7B;" *ngIf="obtenerMensajePresion()">
+                  {{ obtenerMensajePresion() }}
                 </small>
               </span>
             </div>
 
             <div class="mb-3">
-              <span class="d-block small fw-bold" style="color: #2E5481;">Ritmo Cardíaco (Bajo: {{ signos.colorBradicardia }} | Alto: {{ signos.colorTaquicardia }} | Normal: {{ signos.colorNormal }}):</span>
+              <span class="d-block small fw-bold" style="color: #2E5481;">Temperatura Corporal:</span>
+              <!-- IMPORTANTE: Uso de Directivas para temperatura con 4 rangos:
+                   < 36°C: Hipotermia (Rojo)
+                   36-38°C: Normal (Celeste)
+                   38-40°C: Fiebre (Rojo)
+                   > 40°C: Fiebre crítica (Rojo) -->
+              <span class="fs-4 fw-bold" [style.color]="signos.temperatura < 36 ? signos.colorTempMuyBaja : (signos.temperatura < 38 ? signos.colorTempNormal : (signos.temperatura <= 40 ? signos.colorFiebre : signos.colorTempMuyAlta))">
+                {{ signos.temperatura }} °C 
+                <!-- IMPORTANTE: Alerta si HIPOTERMIA (temp < 36°C) -->
+                <small class="fs-6 fw-normal" style="color: #5A6B7B;" *ngIf="signos.temperatura < 36" [ngSwitch]="true">
+                  <span *ngSwitchCase="signos.temperatura < 36">(Alerta: Hipotermia)</span>
+                </small>
+                <!-- IMPORTANTE: Alerta si FIEBRE (temp 38-40°C) -->
+                <small class="fs-6 fw-normal" style="color: #5A6B7B;" *ngIf="signos.temperatura >= 38 && signos.temperatura <= 40" [ngSwitch]="true">
+                  <span *ngSwitchCase="signos.temperatura >= 38">(Alerta: Fiebre)</span>
+                </small>
+                <!-- IMPORTANTE: Alerta si FIEBRE CRÍTICA (temp > 40°C) -->
+                <small class="fs-6 fw-normal" style="color: #5A6B7B;" *ngIf="signos.temperatura > 40" [ngSwitch]="true">
+                  <span *ngSwitchCase="signos.temperatura > 40">(⚠️ Alerta: Fiebre Crítica - Llamar al médico)</span>
+                </small>
+              </span>
+            </div>
+
+            <div class="mb-3">
+              <span class="d-block small fw-bold" style="color: #2E5481;">Ritmo Cardíaco:</span>
               <!-- IMPORTANTE: Directivas dinámicas para alertas médicas de frecuencia cardíaca
-                   [class.text-danger]: aplica clase roja si taquicardia (>100 ppm)
-                   [class.text-warning]: aplica clase amarilla si bradicardia (<60 ppm)
-                   [style.color]: cambia color según el rango: naranja si bajo, rojo si alto, azul si normal -->
-              <span class="fs-4 fw-bold" [class.text-danger]="signos.pulso > 100" [class.text-warning]="signos.pulso < 60" [style.color]="signos.pulso < 60 ? signos.colorBradicardia : (signos.pulso > 100 ? signos.colorTaquicardia : signos.colorNormal)">
+                   [style.color]: cambia color según el rango - rojo si hay alerta, celeste si normal -->
+              <span class="fs-4 fw-bold" [style.color]="signos.pulso < 60 ? signos.colorBradicardia : (signos.pulso > 100 ? signos.colorTaquicardia : signos.colorNormal)">
                 {{ signos.pulso }} ppm
                 <!-- IMPORTANTE: Alerta si TAQUICARDIA (pulso > 100 ppm) - frecuencia muy alta -->
                 <small class="fs-6 fw-normal" style="color: #5A6B7B;" *ngIf="signos.pulso > 100" [ngSwitch]="true">
@@ -121,6 +152,20 @@
                   <span *ngSwitchCase="signos.pulso < 60"> (Bradicardia: Consulta médico)</span>
                 </small>
               </span>
+            </div>
+
+            <div class="mb-3">
+              <span class="d-block small fw-bold" style="color: #2E5481;">Estado Emocional del Paciente:</span>
+              <!-- IMPORTANTE: Muestra el estado de ánimo con color dinámico para el médico -->
+              <div class="p-3 rounded" [style.backgroundColor]="obtenerColorEstadoAnimo() + '20'" [style.borderLeft]="'4px solid ' + obtenerColorEstadoAnimo()">
+                <span class="fs-5 fw-bold" [style.color]="obtenerColorEstadoAnimo()">
+                  {{ obtenerEmojiEstadoAnimo() }}
+                  <span *ngIf="signos.estadoAnimo === 'muy_bien'">Muy bien</span>
+                  <span *ngIf="signos.estadoAnimo === 'bien'">Bien</span>
+                  <span *ngIf="signos.estadoAnimo === 'regular'">Regular</span>
+                  <span *ngIf="signos.estadoAnimo === 'muy_mal'">Muy mal</span>
+                </span>
+              </div>
             </div>
 
             <div class="mb-3">
