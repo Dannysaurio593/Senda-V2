@@ -3,18 +3,18 @@
     <div class="col-md-6">
        <h2 class="fw-bold text-center" style="color: #2E5481;">Ficha Médica</h2>
       <p class="text-center">Componente con Data Binding: Interpolation.</p>
-      <!-- Tarjeta Principal de la Ficha Médica -->
+      <!-- IMPORTANTE: Aquí uso Interpolation ({{ valores }}) para mostrar datos dinámicamente -->
       <div class="card shadow-lg border-start border-4" style="border-color: #2E5481 !important;">
         
-        <!-- Encabezado de la Tarjeta -->
+        <!-- Encabezado - Interpolation: muestra nombre y código del expediente -->
         <div class="card-header py-3" style="background-color: #F4F4F4;">
           <div class="d-flex justify-content-between align-items-center">
             <div>
               <span class="badge text-uppercase mb-1" style="background-color: #ff0000; color: white;">Ficha de Emergencia</span>
-              <!-- INTERPOLACIÓN: Nombre del Paciente -->
+              <!-- Data Binding: {{ nombrePaciente }} se actualiza si cambia en el componente -->
               <h4 class="card-title fw-bold mb-0" style="color: #2E5481;">{{ nombrePaciente }}</h4>
             </div>
-            <!-- INTERPOLACIÓN: Código del Expediente -->
+            <!-- Data Binding: muestra el código de forma dinámica -->
             <span class="small fw-mono" style="color: #5A6B7B;">{{ codigoExpediente }}</span>
           </div>
         </div>
@@ -23,33 +23,35 @@
         <div class="card-body p-4" style="background-color: #F4F4F4;">
           
           <div class="row g-3">
-            <!-- Bloque: Edad -->
+            <!-- IMPORTANTE: Aquí uso [ngClass] - aplica clase 'border-danger' si edad > 65 -->
             <div class="col-6">
               <div class="p-3 rounded shadow-sm" [ngClass]="{'border-2 border-danger': edad > 65}" style="background-color: white;">
                 <small class="d-block text-uppercase fw-bold" style="font-size: 0.75rem; color: #5A6B7B;">Edad</small>
-                <span class="fs-5 fw-bold" [style.color]="edad > 65 ? '#d32f2f' : '#2E5481'">{{ edad }} años</span>
+                <!-- [style.color]: cambia color dinámicamente según edad -->
+                <span class="fs-5 fw-bold" [style.color]="edad > 65 ? colorEdadAlta : colorEdadNormal">{{ edad }} años</span>
               </div>
             </div>
             
-            <!-- Bloque: Tipo de Sangre -->
+            <!-- IMPORTANTE: Aquí uso [ngStyle] - aplica estilos dinámicos según tipo de sangre -->
             <div class="col-6">
               <div class="p-3 rounded shadow-sm border-end border-3" style="background-color: white; border-color: #ff0000 !important;">
                 <small class="d-block text-uppercase fw-bold" style="font-size: 0.75rem; color: #5A6B7B;">Grupo Sanguíneo</small>
-                <span class="fs-5 fw-bold" [ngStyle]="{'color': tipoSangre === 'O Positivo (O+)' ? '#ff6b6b' : '#d32f2f', 'font-weight': tipoSangre === 'O Positivo (O+)' ? 'bold' : 'normal'}">{{ tipoSangre }}</span>
+                <!-- [ngStyle]: cambia color dinámicamente según tipo de sangre -->
+                <span class="fs-5 fw-bold" [ngStyle]="{'color': tipoSangre === 'O Positivo (O+)' ? colorSangreOPositivo : colorSangreOtros, 'font-weight': tipoSangre === 'O Positivo (O+)' ? 'bold' : 'normal'}">{{ tipoSangre }}</span>
               </div>
             </div>
           </div>
 
           <hr class="my-4" style="border-color: #5A6B7B;">
 
-          <!-- Sección: Contacto de Emergencia -->
+          <!-- Sección: Contacto de Emergencia - Data Binding: Interpolation -->
           <div class="p-3 rounded shadow-sm mb-3" style="background-color: white;">
             <h6 class="fw-bold mb-2" style="color: #ff0000;">📞 Contacto de Emergencia Inmediata</h6>
             <p class="mb-1" style="color: #2E5481;"><strong>Familiar:</strong> {{ contactoEmergencia }}</p>
             <p class="mb-0" style="color: #2E5481;"><strong>Teléfono: </strong> <span class="fw-bold" style="color: #00A4D3;">{{ telefonoEmergencia }}</span></p>
           </div>
 
-          <!-- Sección: Fechas del Sistema -->
+          <!-- Sección: Fechas del Sistema - Data Binding: muestra fechas dinámicamente -->
           <div class="p-3 rounded shadow-sm" style="background-color: #2E5481; color: white;">
             <div class="d-flex justify-content-between small">
               <span><strong>Reporte del:</strong> {{ fechaActual }}</span>
@@ -64,6 +66,37 @@
           Módulo de Seguridad • Companion SENDA
         </div>
 
+      </div>
+
+      <!-- IMPORTANTE: Selector de colores para alertas médicas de ficha -->
+      <div class="card shadow border-0 mt-4" style="border-radius: 15px; background-color: #f9f9f9;">
+        <div class="card-header py-3" style="background-color: #2E5481; color: white; border-radius: 15px 15px 0 0;">
+          <h6 class="mb-0 text-center">⚙️ Personalizar Colores de la Ficha</h6>
+        </div>
+        <div class="card-body p-3">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label fw-bold small">Color Edad Crítica (>65):</label>
+              <input type="color" class="form-control form-control-color" [(ngModel)]="colorEdadAlta" style="height: 40px;">
+              <small style="color: #666;">{{ colorEdadAlta }}</small>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-bold small">Color Edad Normal (≤65):</label>
+              <input type="color" class="form-control form-control-color" [(ngModel)]="colorEdadNormal" style="height: 40px;">
+              <small style="color: #666;">{{ colorEdadNormal }}</small>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-bold small">Color Sangre O+ (especial):</label>
+              <input type="color" class="form-control form-control-color" [(ngModel)]="colorSangreOPositivo" style="height: 40px;">
+              <small style="color: #666;">{{ colorSangreOPositivo }}</small>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-bold small">Color Otros Grupos:</label>
+              <input type="color" class="form-control form-control-color" [(ngModel)]="colorSangreOtros" style="height: 40px;">
+              <small style="color: #666;">{{ colorSangreOtros }}</small>
+            </div>
+          </div>
+        </div>
       </div>
 
     </div>

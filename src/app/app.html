@@ -2,13 +2,19 @@
 <div class="container">
   <div class="row">
     <div class="col mt-2">
-      <app-navbar [seccionActiva]="seccionActiva" (alCambiarPantalla)="seccionActiva = $event"></app-navbar>
+      <!-- Navbar: pasa la sección activa y escucha eventos de cambio de pantalla -->
+      <!-- (alCambiarPantalla): evento del navbar que llama cambiarSeccion() para guardar en localStorage -->
+      <app-navbar [seccionActiva]="seccionActiva" (alCambiarPantalla)="cambiarSeccion($event)"></app-navbar>
     </div>
   </div>
 </div>
 <!-- Aquí TERMINA el componente del HEADER -->
+
+<!-- IMPORTANTE: Uso de NgSwitch para mostrar/ocultar componentes según la navegación -->
+<!-- [ngSwitch]: evalúa la variable seccionActiva
+     *ngSwitchCase: muestra el elemento solo si el caso coincide -->
 <div class="main-content py-4" [ngSwitch]="seccionActiva">
-   <!-- Inicia un texto de muestra no es importante, pronto será borardo-->
+   <!-- Sección Home (bienvenida) -->
   <div *ngSwitchCase="'home'" class="container">
     <div class="row">
       <div class="col mt-5">
@@ -16,11 +22,12 @@
       </div>
     </div>
   </div>
- <!-- TERMINA EL texto de muestra no es importante, pronto será borardo-->
- <!-- Desde aquí COMIENZAN los componentes, estoy en el app.html -->
+ 
+  <!-- Componente: Ficha Médica del Paciente -->
   <app-ficha-de-paciente *ngSwitchCase="'ficha'"></app-ficha-de-paciente>
+  
+  <!-- Componente: Ingreso de Signos Vitales -->
   <app-ingreso-signos *ngSwitchCase="'signos'"></app-ingreso-signos>
-  <!-- Aquí terminan los componentes -->
 </div>
 
 <!-- Aquí insertamos el componente del FOOTER -->
