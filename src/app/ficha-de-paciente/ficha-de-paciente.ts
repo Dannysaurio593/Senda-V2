@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-ficha-de-paciente',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './ficha-de-paciente.html',
   styleUrl: './ficha-de-paciente.css',
 })

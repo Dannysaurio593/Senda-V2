@@ -25,9 +25,9 @@
           <div class="row g-3">
             <!-- Bloque: Edad -->
             <div class="col-6">
-              <div class="p-3 rounded shadow-sm" style="background-color: white;">
+              <div class="p-3 rounded shadow-sm" [ngClass]="{'border-2 border-danger': edad > 65}" style="background-color: white;">
                 <small class="d-block text-uppercase fw-bold" style="font-size: 0.75rem; color: #5A6B7B;">Edad</small>
-                <span class="fs-5 fw-bold" style="color: #2E5481;">{{ edad }} años</span>
+                <span class="fs-5 fw-bold" [style.color]="edad > 65 ? '#d32f2f' : '#2E5481'">{{ edad }} años</span>
               </div>
             </div>
             
@@ -35,7 +35,7 @@
             <div class="col-6">
               <div class="p-3 rounded shadow-sm border-end border-3" style="background-color: white; border-color: #ff0000 !important;">
                 <small class="d-block text-uppercase fw-bold" style="font-size: 0.75rem; color: #5A6B7B;">Grupo Sanguíneo</small>
-                <span class="fs-5 fw-bold" style="color: #ff0000;">{{ tipoSangre }}</span>
+                <span class="fs-5 fw-bold" [ngStyle]="{'color': tipoSangre === 'O Positivo (O+)' ? '#ff6b6b' : '#d32f2f', 'font-weight': tipoSangre === 'O Positivo (O+)' ? 'bold' : 'normal'}">{{ tipoSangre }}</span>
               </div>
             </div>
           </div>
