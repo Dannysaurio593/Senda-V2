@@ -7,9 +7,9 @@
   </div>
 </div>
 <!-- Aquí TERMINA el componente del HEADER -->
-<div class="main-content py-4">
+<div class="main-content py-4" [ngSwitch]="seccionActiva">
    <!-- Inicia un texto de muestra no es importante, pronto será borardo-->
-  <div *ngIf="seccionActiva === 'home'" class="container">
+  <div *ngSwitchCase="'home'" class="container">
     <div class="row">
       <div class="col mt-5">
         <p><i class="bi-emoji-smile"></i> ¡Bienvenido a tu espacio de trabajo!<br><br> Aquí iremos agregando todos los componentes de nuestra web.</p>
@@ -18,8 +18,8 @@
   </div>
  <!-- TERMINA EL texto de muestra no es importante, pronto será borardo-->
  <!-- Desde aquí COMIENZAN los componentes, estoy en el app.html -->
-  <app-ficha-de-paciente *ngIf="seccionActiva === 'ficha'"></app-ficha-de-paciente>
-  <app-ingreso-signos *ngIf="seccionActiva === 'signos'"></app-ingreso-signos>
+  <app-ficha-de-paciente *ngSwitchCase="'ficha'"></app-ficha-de-paciente>
+  <app-ingreso-signos *ngSwitchCase="'signos'"></app-ingreso-signos>
   <!-- Aquí terminan los componentes -->
 </div>
 

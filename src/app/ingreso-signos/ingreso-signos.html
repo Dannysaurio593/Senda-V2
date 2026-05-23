@@ -57,7 +57,9 @@
               <span class="d-block small fw-bold" style="color: #2E5481;">Temperatura Corporal:</span>
               <span class="fs-4 fw-bold" [class.text-danger]="signos.temperatura >= 38" [style.color]="signos.temperatura < 38 ? '#00A4D3' : '#d32f2f'">
                 {{ signos.temperatura }} °C 
-                <small class="fs-6 fw-normal" style="color: #5A6B7B;" *ngIf="signos.temperatura >= 38">(Alerta: Fiebre)</small>
+                <small class="fs-6 fw-normal" style="color: #5A6B7B;" *ngIf="signos.temperatura >= 38" [ngSwitch]="true">
+                  <span *ngSwitchCase="signos.temperatura >= 38">(Alerta: Fiebre)</span>
+                </small>
               </span>
             </div>
 
