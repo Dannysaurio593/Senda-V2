@@ -1,0 +1,11 @@
+
+
+.card {
+  min-height: 260px;
+}
+
+@media (max-width: 767px) {
+  .card {
+    min-height: auto;
+  }
+}

@@ -1,4 +1,3 @@
-
 .sos-circle {
   background-color: #e50000;
   width: 120px;
@@ -9,13 +8,11 @@
   align-items: center;
   border: 5px solid white;
   cursor: pointer;
-  
-
   animation: pulse-sos 2s ease-out infinite;
 }
 
 .sos-circle h1 {
-  transform: translateZ(0); 
+  transform: translateZ(0);
 }
 
 @keyframes pulse-sos {
@@ -23,25 +20,14 @@
     transform: scale(1);
     box-shadow: 0 0 0 0px rgba(229, 0, 0, 0.4);
   }
-  
   70% {
     transform: scale(1.03);
-    box-shadow: 0 0 0 20px rgba(229, 0, 0, 0); 
+    box-shadow: 0 0 0 20px rgba(229, 0, 0, 0);
   }
-  
   100% {
     transform: scale(1);
     box-shadow: 0 0 0 0px rgba(229, 0, 0, 0);
   }
-}
-
-.overlay-emergente .contenido-emergente {
-  background-color: white;
-  padding: 30px;
-  border-radius: 10px;
-  text-align: center;
-  max-width: 400px;
-  width: 90%;
 }
 
 .overlay-emergente {
@@ -50,12 +36,11 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.6); /* Negro transparente */
-  z-index: 2000; 
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 2000;
   display: flex;
   justify-content: center;
   align-items: center;
-  /* Una pequeña animación de entrada */
   animation: aparecer 0.3s ease-out;
 }
 
@@ -63,3 +48,13 @@
   from { opacity: 0; transform: scale(0.9); }
   to { opacity: 1; transform: scale(1); }
 }
+
+.btn-outline-success, .btn-outline-warning, .btn-outline-danger {
+  border-width: 2px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-outline-success:hover { background-color: #198754; color: white; }
+.btn-outline-warning:hover { background-color: #ffc107; color: white; }
+.btn-outline-danger:hover { background-color: #dc3545; color: white; }

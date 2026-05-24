@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -9,6 +9,8 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./navbar.css'],
 })
 export class Navbar {
+  @Output() agendarCita = new EventEmitter<void>();
+
   isDropdownOpen = false;
   private closeTimeout: any;
 
@@ -27,5 +29,10 @@ export class Navbar {
     this.closeTimeout = setTimeout(() => {
       this.closeDropdown();
     }, 200);
+  }
+
+  onAgendarCita(event: Event) {
+    event.preventDefault();
+    this.agendarCita.emit();
   }
 }

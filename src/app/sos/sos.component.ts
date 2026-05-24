@@ -1,17 +1,12 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { Navbar } from './navbar/navbar';
-import { Footer } from './footer/footer';
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-sos',
   standalone: true,
-  imports: [RouterOutlet, Navbar, Footer],
-  templateUrl: './app.html',
-  styleUrls: ['./app.css']
+  templateUrl: './sos.component.html',
+  styleUrls: ['./sos.component.css'],
 })
-export class AppComponent {
-  
+export class SosComponent {
   checkboxConfirmacion: boolean = false;
   mostrarVentana: boolean = false;
 
@@ -23,5 +18,4 @@ export class AppComponent {
   cerrarVentana() {
     this.mostrarVentana = false;
   }
-  
 }
