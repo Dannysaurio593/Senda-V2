@@ -10,6 +10,8 @@ import { CommonModule } from '@angular/common';
 })
 export class Navbar {
   @Output() agendarCita = new EventEmitter<void>();
+  @Output() openSos = new EventEmitter<void>();
+  @Output() navHome = new EventEmitter<void>();
 
   isDropdownOpen = false;
   private closeTimeout: any;
@@ -34,5 +36,15 @@ export class Navbar {
   onAgendarCita(event: Event) {
     event.preventDefault();
     this.agendarCita.emit();
+  }
+
+  onHome(event: Event) {
+    event.preventDefault();
+    this.navHome.emit();
+  }
+
+  onSos(event: Event) {
+    event.preventDefault();
+    this.openSos.emit();
   }
 }

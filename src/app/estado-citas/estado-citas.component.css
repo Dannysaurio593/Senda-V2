@@ -9,3 +9,15 @@
     min-height: auto;
   }
 }
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.estado {
+  margin-top: 30px;
+  font-size: 1.2em;
+  font-weight: bold;
+}

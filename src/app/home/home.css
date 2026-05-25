@@ -1,0 +1,110 @@
+.home-container {
+  background-color: #dcebfa; 
+  border-radius: 40px;
+  max-width: 800px;
+  margin: auto;
+}
+
+.profile-img {
+  width: 55px;
+  height: 55px;
+  border-radius: 15px;
+  object-fit: cover;
+  border: 2px solid rgb(255, 255, 255);
+}
+
+.mini-sos {
+  background-color: #e50000;
+  color: white;
+  width: 45px;
+  height: 45px;
+  border-radius: 12px;
+  font-size: 10px;
+  border: 2px solid white;
+}
+
+.appointment-card {
+  background-color: #ffffff;
+  border-radius: 20px;
+  border-left: 5px solid #1e4570;
+}
+
+.service-tile {
+  background-color: #ffffff;
+  border-radius: 25px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: 1px solid #eef2f6;
+  transition: transform 0.2s;
+}
+
+.service-tile:hover {
+  transform: translateY(-5px);
+  background-color: #f8fbff;
+}
+
+/* Tarjeta principal con más respiro */
+.heart-rate-card {
+  background-color: #ffffff;
+  border-radius: 30px;
+  padding: 2.5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid #eef2f6;
+}
+
+.heart-rate-img {
+  width: 130px;
+  height: auto;
+  filter: drop-shadow(0 15px 20px rgba(220, 53, 69, 0.4)); 
+  
+  animation: heartBeat 1.5s infinite ease-in-out;
+  transform-origin: center;
+}
+
+@keyframes heartBeat {
+  0% { transform: scale(1); }
+  14% { transform: scale(1.12); }
+  28% { transform: scale(1); }
+  42% { transform: scale(1.12); }
+  70% { transform: scale(1); }
+  100% { transform: scale(1); }
+}
+
+
+.beat-icon {
+  animation: heartBeat 1.5s infinite ease-in-out;
+  transform-origin: center;
+}
+
+@keyframes heartBeat {
+  0% { transform: scale(1); }
+  14% { transform: scale(1.1); }
+  28% { transform: scale(1); }
+  42% { transform: scale(1.12); }
+  56% { transform: scale(1); }
+}
+
+
+.heart-icon {
+  font-size: 7.5rem; 
+  
+  color: #a71d2a; 
+  
+  filter: drop-shadow(0 0 12px rgba(220, 53, 69, 0.9));
+  
+  text-shadow: 2px 2px 3px rgba(0,0,0,0.3);
+  
+  animation: heartbeat 1.5s infinite;
+}
+
+@keyframes heartbeat {
+  0% { transform: scale(1); }
+  14% { transform: scale(1.15); }
+  28% { transform: scale(1); }
+  42% { transform: scale(1.15); }
+  70% { transform: scale(1); }
+}

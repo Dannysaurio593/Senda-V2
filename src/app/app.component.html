@@ -1,16 +1,16 @@
 <div class="container">
   <div class="row">
     <div class="col mt-2">
-      <app-navbar (agendarCita)="openAgendarCita()"></app-navbar>
+      <app-navbar (agendarCita)="openAgendarCita()" (openSos)="openSos()" (navHome)="openHome()"></app-navbar>
     </div>
   </div>
 </div>
 
 <app-estado-citas *ngIf="showEstadoCitasSection"></app-estado-citas>
 
-<app-sos></app-sos>
-
-<router-outlet />
+<div *ngIf="!showEstadoCitasSection">
+  <router-outlet></router-outlet>
+</div>
 
 <div class="container">
   <div class="row">
@@ -23,20 +23,6 @@
 <footer class="text-center text-lg-start mt-auto pt-4" style="background-color: #f8f9fa; border-top: 1px solid #e9ecef;">
   <div class="container p-4">
     <div class="row align-items-center">
-      
-      <div class="col-lg-6 col-md-12 mb-4 mb-md-0 text-start">
-        <h5 class="text-uppercase fw-bold mb-2" style="color: #1e4570;">Senda SOS</h5>
-        <p class="text-muted small mb-0">
-          Sistema de respuesta rápida para emergencias médicas. Tu seguridad y la de tus seres queridos es nuestra prioridad.
-        </p>
-      </div>
-
-      <div class="col-lg-6 col-md-12 text-lg-end text-start mt-3 mt-lg-0">
-        <span class="text-muted small">
-          © 2026 Senda. Actividad Grupal Angular.
-        </span>
-      </div>
-
     </div>
   </div>
 </footer>
