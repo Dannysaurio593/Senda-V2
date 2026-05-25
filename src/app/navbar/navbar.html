@@ -9,23 +9,19 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <button class="nav-link btn btn-link" [class.active]="seccionActiva === 'home'" (click)="mostrarHome()">Home</button>
+          <a class="nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Agendar Cita</a>
+          <a class="nav-link" routerLink="/ficha-medica" routerLinkActive="active">Ficha Médica</a>
         </li>
         <li class="nav-item">
-          <button class="nav-link btn btn-link" [class.active]="seccionActiva === 'ficha'" (click)="mostrarFicha()">
-           Ficha Médica
-          </button>
+          <a class="nav-link" routerLink="/estado-citas" routerLinkActive="active">Citas Médicas</a>
         </li>
         <li class="nav-item">
-          <button class="nav-link btn btn-link" [class.active]="seccionActiva === 'signos'" (click)="mostrarSignos()">
-            Signos Vitales
-          </button>
+          <a class="nav-link" routerLink="/signos-vitales" routerLinkActive="active">Signos Vitales</a>
         </li>
       </ul>
-      <button class="btn btn-danger btn-lg" type="button" style="padding: 12px 50px; font-size: 18px; font-weight: bold;">SOS</button>
+      <a routerLink="/sos" class="btn btn-danger btn-lg" type="button" style="padding: 12px 50px; font-size: 18px; font-weight: bold;">SOS</a>
     </div>
   </div>
 </nav>

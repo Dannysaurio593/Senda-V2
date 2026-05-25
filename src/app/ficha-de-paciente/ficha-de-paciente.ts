@@ -15,7 +15,7 @@ export class FichaDePaciente {
   // DATOS GENERALES DEL PACIENTE
   nombrePaciente: string = 'Carlos Eduardo Mendoza';
   codigoExpediente: string = 'SENDA-2026-8834';
-  edad: number = 42;  // Usada en directiva [ngClass] para alerta de edad
+  edad: number = 35;  // Usada en directiva [ngClass] para alerta de edad
   tipoSangre: string = 'O Positivo (O+)';  // Usada en directiva [ngStyle]
   
   // DATOS MÉDICOS CRÍTICOS
