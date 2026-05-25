@@ -9,26 +9,20 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
+          <button class="nav-link btn btn-link" [class.active]="seccionActiva === 'home'" (click)="mostrarHome()">Home</button>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Agendar Cita</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Resultados de Laboratorio</a>
+          <button class="nav-link btn btn-link" [class.active]="seccionActiva === 'ficha'" (click)="mostrarFicha()">
+           Ficha Médica
+          </button>
         </li>
-        <li class="nav-item dropdown" [class.show]="isDropdownOpen" (mouseleave)="closeDropdown()">
-          <a class="nav-link dropdown-toggle" href="#" role="button" (click)="toggleDropdown(); $event.preventDefault()">
-            Especialidades
-          </a>
-          <ul class="dropdown-menu" [class.show]="isDropdownOpen">
-            <li><a class="dropdown-item" href="#" (click)="closeDropdown()">Medicina General</a></li>
-            <li><a class="dropdown-item" href="#" (click)="closeDropdown()">Cardiología</a></li>
-            <li><a class="dropdown-item" href="#" (click)="closeDropdown()">Dermatología</a></li>
-            <li><a class="dropdown-item" href="#" (click)="closeDropdown()">Pediatría</a></li>
-            <li><a class="dropdown-item" href="#" (click)="closeDropdown()">Ginecología</a></li>
-            <li><a class="dropdown-item" href="#" (click)="closeDropdown()">Oftalmología</a></li>
-          </ul>
+        <li class="nav-item">
+          <button class="nav-link btn btn-link" [class.active]="seccionActiva === 'signos'" (click)="mostrarSignos()">
+            Signos Vitales
+          </button>
         </li>
       </ul>
       <button class="btn btn-danger btn-lg" type="button" style="padding: 12px 50px; font-size: 18px; font-weight: bold;">SOS</button>

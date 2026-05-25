@@ -1,0 +1,187 @@
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <h2 class="fw-bold text-center" style="color: #2E5481;">Ingreso de Signos Vitales</h2>
+    <p class="text-center">
+      Componente con Two-Way Data Binding.
+    </p>
+    
+    <!-- IMPORTANTE: Two-Way Data Binding [(ngModel)] en el formulario -->
+    <!-- Los datos se sincronizan: usuario escribe → componente actualiza → pantalla muestra -->
+    <div class="col-md-5 mb-4">
+      <div class="card shadow border-0 h-100" style="border-radius: 15px;">
+        <div class="card-header text-white py-3" style="border-radius: 15px 15px 0 0; background-color: #2e5481;">
+          <h5 class="mb-0 text-center">Registrar Signos Vitales</h5>
+        </div>
+        <div class="card-body p-4" style="background-color: #F4F4F4;">
+          
+          <!-- Two-Way Binding: [(ngModel)] vincula el input con la propiedad del componente -->
+          <div class="mb-3">
+            <label class="form-label fw-bold" style="color: #2E5481;">Presión Arterial (PA)</label>
+            <input type="text" class="form-control form-control-lg" [(ngModel)]="signos.presionArterial" placeholder="Ej: 120/80">
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label fw-bold" style="color: #2E5481;">Temperatura (°C)</label>
+            <input type="number" class="form-control form-control-lg" [(ngModel)]="signos.temperatura" step="0.1">
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label fw-bold" style="color: #2E5481;">Frecuencia Cardíaca (RPR)</label>
+            <input type="number" class="form-control form-control-lg" [(ngModel)]="signos.pulso">
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label fw-bold" style="color: #2E5481;">¿Cómo se siente hoy?</label>
+            <!-- IMPORTANTE: Selector visual de estado de ánimo con caritas - CENTRADO -->
+            <div class="d-flex gap-2 mb-3 justify-content-center">
+              <!-- Carita: Muy Bien -->
+              <button type="button" class="btn btn-lg rounded-circle p-2" 
+                [style.backgroundColor]="signos.estadoAnimo === 'muy_bien' ? '#4CAF50' : '#e0e0e0'"
+                [style.color]="signos.estadoAnimo === 'muy_bien' ? 'white' : '#999'"
+                [style.border]="signos.estadoAnimo === 'muy_bien' ? '3px solid #2E5481' : 'none'"
+                (click)="signos.estadoAnimo = 'muy_bien'" 
+                title="Muy bien">
+                😄
+              </button>
+              
+              <!-- Carita: Bien -->
+              <button type="button" class="btn btn-lg rounded-circle p-2" 
+                [style.backgroundColor]="signos.estadoAnimo === 'bien' ? '#8BC34A' : '#e0e0e0'"
+                [style.color]="signos.estadoAnimo === 'bien' ? 'white' : '#999'"
+                [style.border]="signos.estadoAnimo === 'bien' ? '3px solid #2E5481' : 'none'"
+                (click)="signos.estadoAnimo = 'bien'" 
+                title="Bien">
+                🙂
+              </button>
+              
+              <!-- Carita: Regular -->
+              <button type="button" class="btn btn-lg rounded-circle p-2" 
+                [style.backgroundColor]="signos.estadoAnimo === 'regular' ? '#FF9800' : '#e0e0e0'"
+                [style.color]="signos.estadoAnimo === 'regular' ? 'white' : '#999'"
+                [style.border]="signos.estadoAnimo === 'regular' ? '3px solid #2E5481' : 'none'"
+                (click)="signos.estadoAnimo = 'regular'" 
+                title="Regular">
+                😐
+              </button>
+              
+              <!-- Carita: Muy Mal -->
+              <button type="button" class="btn btn-lg rounded-circle p-2" 
+                [style.backgroundColor]="signos.estadoAnimo === 'muy_mal' ? '#d32f2f' : '#e0e0e0'"
+                [style.color]="signos.estadoAnimo === 'muy_mal' ? 'white' : '#999'"
+                [style.border]="signos.estadoAnimo === 'muy_mal' ? '3px solid #2E5481' : 'none'"
+                (click)="signos.estadoAnimo = 'muy_mal'" 
+                title="Muy mal">
+                😟
+              </button>
+            </div>
+            <small style="color: #2E5481; font-weight: bold;">Estado seleccionado: {{ obtenerEmojiEstadoAnimo() }}</small>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label fw-bold" style="color: #2E5481;">Síntomas o Notas Adicionales</label>
+            <textarea class="form-control" rows="3" [(ngModel)]="signos.notasSintomas" placeholder="¿Cómo se siente el paciente hoy?"></textarea>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- REPORTE EN TIEMPO REAL: muestra los datos ingresados con Interpolation + Directivas -->
+    <div class="col-md-5 mb-4">
+      <div class="card shadow border-0 h-100" style="border-radius: 15px; background-color: #f1f1f1; color: white;">
+        <div class="card-header py-3 text-center" style="border-radius: 15px 15px 0 0; background-color: #2e5481;">
+          <h5 class="mb-0">Reporte Digital para el Médico</h5>
+        </div>
+        <div class="card-body p-4 d-flex flex-column justify-content-between">
+          
+          <div>
+            <p class="small border-bottom pb-2" style="border-color: #2E5481; color: #5A6B7B;">TELEMONITOREO EN TIEMPO REAL</p>
+            
+            <div class="mb-3">
+              <span class="d-block small fw-bold" style="color: #2E5481;">Estado de Presión:</span>
+              <!-- IMPORTANTE: Uso de Directivas para presión arterial con 4 rangos:
+                   < 90/60: Hipotensión (Rojo)
+                   90/60-140/90: Normal (Celeste)
+                   140/90-160/100: Hipertensión (Rojo)
+                   > 160/100: Hipertensión crítica (Rojo) -->
+              <span class="fs-4 fw-bold" [style.color]="obtenerColorPresion()">
+                {{ signos.presionArterial }} mmHg
+                <!-- Muestra alerta si hay problema -->
+                <small class="fs-6 fw-normal" style="color: #5A6B7B;" *ngIf="obtenerMensajePresion()">
+                  {{ obtenerMensajePresion() }}
+                </small>
+              </span>
+            </div>
+
+            <div class="mb-3">
+              <span class="d-block small fw-bold" style="color: #2E5481;">Temperatura Corporal:</span>
+              <!-- IMPORTANTE: Uso de Directivas para temperatura con 4 rangos:
+                   < 36°C: Hipotermia (Rojo)
+                   36-38°C: Normal (Celeste)
+                   38-40°C: Fiebre (Rojo)
+                   > 40°C: Fiebre crítica (Rojo) -->
+              <span class="fs-4 fw-bold" [style.color]="signos.temperatura < 36 ? signos.colorTempMuyBaja : (signos.temperatura < 38 ? signos.colorTempNormal : (signos.temperatura <= 40 ? signos.colorFiebre : signos.colorTempMuyAlta))">
+                {{ signos.temperatura }} °C 
+                <!-- IMPORTANTE: Alerta si HIPOTERMIA (temp < 36°C) -->
+                <small class="fs-6 fw-normal" style="color: #5A6B7B;" *ngIf="signos.temperatura < 36" [ngSwitch]="true">
+                  <span *ngSwitchCase="signos.temperatura < 36">(Alerta: Hipotermia)</span>
+                </small>
+                <!-- IMPORTANTE: Alerta si FIEBRE (temp 38-40°C) -->
+                <small class="fs-6 fw-normal" style="color: #5A6B7B;" *ngIf="signos.temperatura >= 38 && signos.temperatura <= 40" [ngSwitch]="true">
+                  <span *ngSwitchCase="signos.temperatura >= 38">(Alerta: Fiebre)</span>
+                </small>
+                <!-- IMPORTANTE: Alerta si FIEBRE CRÍTICA (temp > 40°C) -->
+                <small class="fs-6 fw-normal" style="color: #5A6B7B;" *ngIf="signos.temperatura > 40" [ngSwitch]="true">
+                  <span *ngSwitchCase="signos.temperatura > 40">(⚠️ Alerta: Fiebre Crítica - Llamar al médico)</span>
+                </small>
+              </span>
+            </div>
+
+            <div class="mb-3">
+              <span class="d-block small fw-bold" style="color: #2E5481;">Ritmo Cardíaco:</span>
+              <!-- IMPORTANTE: Directivas dinámicas para alertas médicas de frecuencia cardíaca
+                   [style.color]: cambia color según el rango - rojo si hay alerta, celeste si normal -->
+              <span class="fs-4 fw-bold" [style.color]="signos.pulso < 60 ? signos.colorBradicardia : (signos.pulso > 100 ? signos.colorTaquicardia : signos.colorNormal)">
+                {{ signos.pulso }} ppm
+                <!-- IMPORTANTE: Alerta si TAQUICARDIA (pulso > 100 ppm) - frecuencia muy alta -->
+                <small class="fs-6 fw-normal" style="color: #5A6B7B;" *ngIf="signos.pulso > 100" [ngSwitch]="true">
+                  <span *ngSwitchCase="signos.pulso > 100"> (Taquicardia: Descansa)</span>
+                </small>
+                <!-- IMPORTANTE: Alerta si BRADICARDIA (pulso < 60 ppm) - frecuencia muy baja -->
+                <small class="fs-6 fw-normal" style="color: #5A6B7B;" *ngIf="signos.pulso < 60" [ngSwitch]="true">
+                  <span *ngSwitchCase="signos.pulso < 60"> (Bradicardia: Consulta médico)</span>
+                </small>
+              </span>
+            </div>
+
+            <div class="mb-3">
+              <span class="d-block small fw-bold" style="color: #2E5481;">Estado Emocional del Paciente:</span>
+              <!-- IMPORTANTE: Muestra el estado de ánimo con color dinámico para el médico -->
+              <div class="p-3 rounded" [style.backgroundColor]="obtenerColorEstadoAnimo() + '20'" [style.borderLeft]="'4px solid ' + obtenerColorEstadoAnimo()">
+                <span class="fs-5 fw-bold" [style.color]="obtenerColorEstadoAnimo()">
+                  {{ obtenerEmojiEstadoAnimo() }}
+                  <span *ngIf="signos.estadoAnimo === 'muy_bien'">Muy bien</span>
+                  <span *ngIf="signos.estadoAnimo === 'bien'">Bien</span>
+                  <span *ngIf="signos.estadoAnimo === 'regular'">Regular</span>
+                  <span *ngIf="signos.estadoAnimo === 'muy_mal'">Muy mal</span>
+                </span>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <span class="d-block small fw-bold" style="color: #2E5481;">Observaciones de Sintomatología:</span>
+              <!-- Data Binding: muestra notas del paciente o mensaje por defecto si está vacío -->
+              <p class="fst-italic p-3 rounded border border-secondary" style="min-height: 80px; background-color: #ffffff; color: rgb(65, 64, 64);">
+                {{ signos.notasSintomas || 'Esperando notas del paciente...' }}
+              </p>
+            </div>
+          </div>
+
+          <button class="btn w-100 fw-bold mt-3" style="background-color: #00A4D3; color: white; border: none;">Enviar Reporte a Senda Clínicas</button>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
