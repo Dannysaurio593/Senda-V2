@@ -1,0 +1,28 @@
+<div class="container">
+  <div class="row">
+    <div class="col mt-2">
+      <app-navbar (agendarCita)="openAgendarCita()" (openSos)="openSos()" (navHome)="openHome()"></app-navbar>
+    </div>
+  </div>
+</div>
+
+<app-estado-citas *ngIf="showEstadoCitasSection"></app-estado-citas>
+
+<div *ngIf="!showEstadoCitasSection">
+  <router-outlet></router-outlet>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <app-footer></app-footer>
+    </div>
+  </div>
+</div>
+
+<footer class="text-center text-lg-start mt-auto pt-4" style="background-color: #f8f9fa; border-top: 1px solid #e9ecef;">
+  <div class="container p-4">
+    <div class="row align-items-center">
+    </div>
+  </div>
+</footer>
