@@ -18,6 +18,17 @@
   margin-bottom: 20px;
 }
 
+.footer-logo-link {
+  display: inline-block;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  text-decoration: none;
+}
+
+.footer-logo-link:hover {
+  transform: scale(1.05);
+}
+
 .footer-links {
   list-style: none;
   padding: 0;
