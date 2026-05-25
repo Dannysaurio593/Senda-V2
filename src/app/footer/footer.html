@@ -10,10 +10,10 @@
       <div class="col-md-3">
         <h5>Menú</h5>
         <ul class="footer-links">
-          <li><a href="#">Home</a></li>
-          <li><a href="#">Agendar Cita</a></li>
-          <li><a href="#">Resultados de Laboratorio</a></li>
-          <li><a href="#">Especialidades</a></li>
+          <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a></li>
+          <li><a routerLink="/ficha-medica" routerLinkActive="active">Ficha Médica</a></li>
+          <li><a routerLink="/estado-citas" routerLinkActive="active">Citas Médicas</a></li>
+          <li><a routerLink="/signos-vitales" routerLinkActive="active">Signos Vitales</a></li>
         </ul>
       </div>
 
