@@ -123,16 +123,16 @@
               <span class="fs-4 fw-bold" [style.color]="signos.temperatura < 36 ? signos.colorTempMuyBaja : (signos.temperatura < 38 ? signos.colorTempNormal : (signos.temperatura <= 40 ? signos.colorFiebre : signos.colorTempMuyAlta))">
                 {{ signos.temperatura }} °C 
                 <!-- IMPORTANTE: Alerta si HIPOTERMIA (temp < 36°C) -->
-                <small class="fs-6 fw-normal" style="color: #5A6B7B;" *ngIf="signos.temperatura < 36" [ngSwitch]="true">
-                  <span *ngSwitchCase="signos.temperatura < 36">(Alerta: Hipotermia)</span>
+                <small class="fs-6 fw-normal" style="color: #5A6B7B;" *ngIf="signos.temperatura < 36">
+                  (Alerta: Hipotermia)
                 </small>
                 <!-- IMPORTANTE: Alerta si FIEBRE (temp 38-40°C) -->
-                <small class="fs-6 fw-normal" style="color: #5A6B7B;" *ngIf="signos.temperatura >= 38 && signos.temperatura <= 40" [ngSwitch]="true">
-                  <span *ngSwitchCase="signos.temperatura >= 38">(Alerta: Fiebre)</span>
+                <small class="fs-6 fw-normal" style="color: #5A6B7B;" *ngIf="signos.temperatura >= 38 && signos.temperatura <= 40">
+                  (Alerta: Fiebre)
                 </small>
                 <!-- IMPORTANTE: Alerta si FIEBRE CRÍTICA (temp > 40°C) -->
-                <small class="fs-6 fw-normal" style="color: #5A6B7B;" *ngIf="signos.temperatura > 40" [ngSwitch]="true">
-                  <span *ngSwitchCase="signos.temperatura > 40">(⚠️ Alerta: Fiebre Crítica - Llamar al médico)</span>
+                <small class="fs-6 fw-normal" style="color: #5A6B7B;" *ngIf="signos.temperatura > 40">
+                  (⚠️ Alerta: Fiebre Crítica - Llamar al médico)
                 </small>
               </span>
             </div>
@@ -144,12 +144,12 @@
               <span class="fs-4 fw-bold" [style.color]="signos.pulso < 60 ? signos.colorBradicardia : (signos.pulso > 100 ? signos.colorTaquicardia : signos.colorNormal)">
                 {{ signos.pulso }} ppm
                 <!-- IMPORTANTE: Alerta si TAQUICARDIA (pulso > 100 ppm) - frecuencia muy alta -->
-                <small class="fs-6 fw-normal" style="color: #5A6B7B;" *ngIf="signos.pulso > 100" [ngSwitch]="true">
-                  <span *ngSwitchCase="signos.pulso > 100"> (Taquicardia: Descansa)</span>
+                <small class="fs-6 fw-normal" style="color: #5A6B7B;" *ngIf="signos.pulso > 100">
+                  (Taquicardia: Descansa)
                 </small>
                 <!-- IMPORTANTE: Alerta si BRADICARDIA (pulso < 60 ppm) - frecuencia muy baja -->
-                <small class="fs-6 fw-normal" style="color: #5A6B7B;" *ngIf="signos.pulso < 60" [ngSwitch]="true">
-                  <span *ngSwitchCase="signos.pulso < 60"> (Bradicardia: Consulta médico)</span>
+                <small class="fs-6 fw-normal" style="color: #5A6B7B;" *ngIf="signos.pulso < 60">
+                  (Bradicardia: Consulta médico)
                 </small>
               </span>
             </div>

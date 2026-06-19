@@ -1,1 +1,76 @@
-<p>reporte-paciente works!</p>
+<div class="container mt-0">
+  <div class="row justify-content-center">
+    <div class="col-md-12">
+       <h2 class="fw-bold text-center" style="color: #2E5481;">📥 Componente HIJO <br> Ficha Médica</h2>
+      <p class="text-center">Recibe datos del PADRE con <strong>@Input</strong> • Emite eventos con <strong>@Output</strong></p>
+      <!-- IMPORTANTE: Aquí uso Interpolation ({{ valores }}) para mostrar datos dinámicamente -->
+      <div class="card shadow-lg border-start border-4" style="border-color: #2E5481 !important;">
+        
+        <!-- Encabezado - Interpolation: muestra nombre y código del expediente -->
+        <div class="card-header py-3" style="background-color: #F4F4F4;">
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <span class="badge text-uppercase mb-1" style="background-color: #ff0000; color: white;">Ficha de Emergencia</span>
+              <!-- Data Binding: {{ nombrePaciente }} se actualiza si cambia en el componente padre -->
+              <h4 class="card-title fw-bold mb-0" style="color: #2E5481;">{{ nombrePaciente }}</h4>
+            </div>
+            <!-- Data Binding: muestra el código de forma dinámica -->
+            <span class="small fw-mono" style="color: #5A6B7B;">{{ codigoExpediente }}</span>
+          </div>
+        </div>
+        
+        <!-- Cuerpo de la Tarjeta -->
+        <div class="card-body p-4" style="background-color: #F4F4F4;">
+          
+          <div class="row g-3">
+            <!-- IMPORTANTE: Aquí uso [ngClass] - aplica clase 'border-danger' si edad > 65 -->
+            <div class="col-6">
+              <div class="p-3 rounded shadow-sm" [ngClass]="{'border-2 border-danger': edad > 65}" style="background-color: white;">
+                <small class="d-block text-uppercase fw-bold" style="font-size: 0.75rem; color: #5A6B7B;">Edad</small>
+                <!-- [style.color]: cambia color dinámicamente según edad -->
+                <span class="fs-5 fw-bold" [style.color]="edad > 65 ? colorEdadAlta : colorEdadNormal">{{ edad }} años</span>
+              </div>
+            </div>
+            
+            <!-- IMPORTANTE: Aquí uso [ngStyle] - aplica estilos dinámicos según tipo de sangre -->
+            <div class="col-6">
+              <div class="p-3 rounded shadow-sm border-end border-3" style="background-color: white; border-color: #ff0000 !important;">
+                <small class="d-block text-uppercase fw-bold" style="font-size: 0.75rem; color: #5A6B7B;">Grupo Sanguíneo</small>
+                <!-- [ngStyle]: cambia color dinámicamente según tipo de sangre -->
+                <span class="fs-5 fw-bold" [ngStyle]="{'color': tipoSangre === 'O Positivo (O+)' ? colorSangreOPositivo : colorSangreOtros, 'font-weight': tipoSangre === 'O Positivo (O+)' ? 'bold' : 'normal'}">{{ tipoSangre }}</span>
+              </div>
+            </div>
+          </div>
+
+          <hr class="my-4" style="border-color: #5A6B7B;">
+
+          <!-- Sección: Contacto de Emergencia - Data Binding: Interpolation -->
+          <div class="p-3 rounded shadow-sm mb-3" style="background-color: white;">
+            <h6 class="fw-bold mb-2" style="color: #ff0000;">📞 Contacto de Emergencia Inmediata</h6>
+            <p class="mb-1" style="color: #2E5481;"><strong>Familiar:</strong> {{ contactoEmergencia }}</p>
+            <p class="mb-0" style="color: #2E5481;"><strong>Teléfono: </strong> <span class="fw-bold" style="color: #00A4D3;">{{ telefonoEmergencia }}</span></p>
+          </div>
+
+          <!-- Sección: Fechas del Sistema - Data Binding: muestra fechas dinámicamente -->
+          <div class="p-3 rounded shadow-sm" style="background-color: #2E5481; color: white;">
+            <div class="d-flex justify-content-between small">
+              <span><strong>Reporte del:</strong> {{ fechaActual }}</span>
+              <span style="color: #ffee00;"><strong>Próxima Cita:</strong> {{ proximaCita }}</span>
+            </div>
+          </div>
+
+        </div>
+        
+        <!-- Pie de tarjeta con botón Guardar -->
+        <div class="card-footer text-center py-3" style="background-color: #F4F4F4;">
+          <button class="btn btn-success fw-bold" (click)="guardarFicha()">
+            💾 Guardar Ficha (Emitir @Output)
+          </button>
+          <p class="mt-2 mb-0" style="font-size: 0.85rem; color: #5A6B7B;">Módulo de Seguridad • Companion SENDA</p>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>

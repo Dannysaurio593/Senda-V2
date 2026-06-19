@@ -1,73 +1,108 @@
 <div class="container mt-4">
   <div class="row justify-content-center">
+    <!-- CARD 1: INGRESO DE DATOS -->
     <div class="col-md-6">
-       <h2 class="fw-bold text-center" style="color: #2E5481;">Ficha Médica</h2>
-      <p class="text-center">Componente con Data Binding: Interpolation.</p>
-      <!-- IMPORTANTE: Aquí uso Interpolation ({{ valores }}) para mostrar datos dinámicamente -->
+      <h2 class="fw-bold text-center" style="color: #2E5481;">📤 Componente PADRE <br> Ingreso de Datos</h2>
+      <p class="text-center">Envía datos al HIJO con <strong>@Input</strong></p>
+      
       <div class="card shadow-lg border-start border-4" style="border-color: #2E5481 !important;">
-        
-        <!-- Encabezado - Interpolation: muestra nombre y código del expediente -->
         <div class="card-header py-3" style="background-color: #F4F4F4;">
-          <div class="d-flex justify-content-between align-items-center">
-            <div>
-              <span class="badge text-uppercase mb-1" style="background-color: #ff0000; color: white;">Ficha de Emergencia</span>
-              <!-- Data Binding: {{ nombrePaciente }} se actualiza si cambia en el componente -->
-              <h4 class="card-title fw-bold mb-0" style="color: #2E5481;">{{ nombrePaciente }}</h4>
-            </div>
-            <!-- Data Binding: muestra el código de forma dinámica -->
-            <span class="small fw-mono" style="color: #5A6B7B;">{{ codigoExpediente }}</span>
-          </div>
+          <h5 class="card-title fw-bold mb-0" style="color: #2E5481;">📝 Formulario del Paciente</h5>
         </div>
         
-        <!-- Cuerpo de la Tarjeta -->
         <div class="card-body p-4" style="background-color: #F4F4F4;">
-          
-          <div class="row g-3">
-            <!-- IMPORTANTE: Aquí uso [ngClass] - aplica clase 'border-danger' si edad > 65 -->
-            <div class="col-6">
-              <div class="p-3 rounded shadow-sm" [ngClass]="{'border-2 border-danger': edad > 65}" style="background-color: white;">
-                <small class="d-block text-uppercase fw-bold" style="font-size: 0.75rem; color: #5A6B7B;">Edad</small>
-                <!-- [style.color]: cambia color dinámicamente según edad -->
-                <span class="fs-5 fw-bold" [style.color]="edad > 65 ? colorEdadAlta : colorEdadNormal">{{ edad }} años</span>
-              </div>
+          <form>
+            <!-- Nombre -->
+            <div class="mb-3">
+              <label for="nombre" class="form-label fw-bold">Nombre:</label>
+              <input type="text" class="form-control" id="nombre" [(ngModel)]="nombrePaciente" name="nombrePaciente" placeholder="Ingresa el nombre completo">
             </div>
             
-            <!-- IMPORTANTE: Aquí uso [ngStyle] - aplica estilos dinámicos según tipo de sangre -->
-            <div class="col-6">
-              <div class="p-3 rounded shadow-sm border-end border-3" style="background-color: white; border-color: #ff0000 !important;">
-                <small class="d-block text-uppercase fw-bold" style="font-size: 0.75rem; color: #5A6B7B;">Grupo Sanguíneo</small>
-                <!-- [ngStyle]: cambia color dinámicamente según tipo de sangre -->
-                <span class="fs-5 fw-bold" [ngStyle]="{'color': tipoSangre === 'O Positivo (O+)' ? colorSangreOPositivo : colorSangreOtros, 'font-weight': tipoSangre === 'O Positivo (O+)' ? 'bold' : 'normal'}">{{ tipoSangre }}</span>
-              </div>
+            <!-- Código Expediente -->
+            <div class="mb-3">
+              <label for="codigo" class="form-label fw-bold">Código Expediente:</label>
+              <input type="text" class="form-control" id="codigo" [(ngModel)]="codigoExpediente" name="codigoExpediente" placeholder="Ej: SENDA-2026-8834">
             </div>
-          </div>
-
-          <hr class="my-4" style="border-color: #5A6B7B;">
-
-          <!-- Sección: Contacto de Emergencia - Data Binding: Interpolation -->
-          <div class="p-3 rounded shadow-sm mb-3" style="background-color: white;">
-            <h6 class="fw-bold mb-2" style="color: #ff0000;">📞 Contacto de Emergencia Inmediata</h6>
-            <p class="mb-1" style="color: #2E5481;"><strong>Familiar:</strong> {{ contactoEmergencia }}</p>
-            <p class="mb-0" style="color: #2E5481;"><strong>Teléfono: </strong> <span class="fw-bold" style="color: #00A4D3;">{{ telefonoEmergencia }}</span></p>
-          </div>
-
-          <!-- Sección: Fechas del Sistema - Data Binding: muestra fechas dinámicamente -->
-          <div class="p-3 rounded shadow-sm" style="background-color: #2E5481; color: white;">
-            <div class="d-flex justify-content-between small">
-              <span><strong>Reporte del:</strong> {{ fechaActual }}</span>
-              <span style="color: #ffee00;"><strong>Próxima Cita:</strong> {{ proximaCita }}</span>
+            
+            <!-- Edad -->
+            <div class="mb-3">
+              <label for="edad" class="form-label fw-bold">Edad:</label>
+              <input type="number" class="form-control" id="edad" [(ngModel)]="edad" name="edad" placeholder="Ingresa la edad">
             </div>
-          </div>
-
+            
+            <!-- Tipo de Sangre -->
+            <div class="mb-3">
+              <label for="sangre" class="form-label fw-bold">Tipo de Sangre:</label>
+              <select class="form-select" id="sangre" [(ngModel)]="tipoSangre" name="tipoSangre">
+                <option value="">-- Selecciona --</option>
+                <option value="O Positivo (O+)">O Positivo (O+)</option>
+                <option value="A Positivo (A+)">A Positivo (A+)</option>
+                <option value="B Positivo (B+)">B Positivo (B+)</option>
+                <option value="AB Positivo (AB+)">AB Positivo (AB+)</option>
+                <option value="O Negativo (O-)">O Negativo (O-)</option>
+                <option value="A Negativo (A-)">A Negativo (A-)</option>
+                <option value="B Negativo (B-)">B Negativo (B-)</option>
+                <option value="AB Negativo (AB-)">AB Negativo (AB-)</option>
+              </select>
+            </div>
+            
+            <!-- Contacto de Emergencia -->
+            <div class="mb-3">
+              <label for="contacto" class="form-label fw-bold">Contacto de Emergencia:</label>
+              <input type="text" class="form-control" id="contacto" [(ngModel)]="contactoEmergencia" name="contactoEmergencia" placeholder="Nombre del contacto">
+            </div>
+            
+            <!-- Teléfono de Emergencia -->
+            <div class="mb-3">
+              <label for="telefono" class="form-label fw-bold">Teléfono de Emergencia:</label>
+              <input type="tel" class="form-control" id="telefono" [(ngModel)]="telefonoEmergencia" name="telefonoEmergencia" placeholder="Ej: 098 765 4321">
+            </div>
+            
+            <!-- Próxima Cita -->
+            <div class="mb-3">
+              <label for="cita" class="form-label fw-bold">Próxima Cita:</label>
+              <input type="text" class="form-control" id="cita" [(ngModel)]="proximaCita" name="proximaCita" placeholder="Ej: Lunes 25 de Mayo - 10:00 AM">
+            </div>
+          </form>
         </div>
         
-        <!-- Pie de tarjeta simulando la marca del TFM -->
         <div class="card-footer text-center py-2" style="font-size: 0.85rem; background-color: #F4F4F4; color: #5A6B7B;">
-          Módulo de Seguridad • Companion SENDA
+          Los cambios se reflejan en tiempo real ⚡ (Two-way Binding con ngModel)
         </div>
-
       </div>
-
+    </div>
+  </div>
+  
+  <!-- CARD 2: VISUALIZACIÓN (Componente Hijo) -->
+  <div class="row justify-content-center mt-4">
+    <div class="col-md-6">
+      <!-- MODAL LIGHTBOX - Mensaje de Confirmación con animación -->
+      <div *ngIf="mostrarMensaje" class="modal-backdrop-senda">
+        <div class="modal-content-senda">
+          <div class="text-center">
+            <div class="display-1 mb-3" style="font-size: 3rem;">✅</div>
+            <h4 class="fw-bold mb-3" style="color: #2E5481;">¡Éxito!</h4>
+            <p class="fs-6" style="color: #555;">{{ mensajeGuardado }}</p>
+            <p class="small mt-4" style="color: #999;">Desaparecerá en 3 segundos...</p>
+          </div>
+        </div>
+      </div>
+      
+      <app-reporte-paciente 
+        [nombrePaciente]="nombrePaciente"
+        [codigoExpediente]="codigoExpediente"
+        [edad]="edad"
+        [tipoSangre]="tipoSangre"
+        [contactoEmergencia]="contactoEmergencia"
+        [telefonoEmergencia]="telefonoEmergencia"
+        [fechaActual]="fechaActual"
+        [proximaCita]="proximaCita"
+        [colorEdadAlta]="colorEdadAlta"
+        [colorEdadNormal]="colorEdadNormal"
+        [colorSangreOPositivo]="colorSangreOPositivo"
+        [colorSangreOtros]="colorSangreOtros"
+        (fichaguardada)="onFichaGuardada($event)">
+      </app-reporte-paciente>
     </div>
   </div>
 </div>
