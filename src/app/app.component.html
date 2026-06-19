@@ -1,16 +1,17 @@
+<!-- Utilizamos el sistema de rejillas de Bootstrap (container, row, col) para estructurar y alinear el contenido -->
 <div class="container">
   <div class="row">
     <div class="col mt-2">
-      <app-navbar (agendarCita)="openAgendarCita()" (openSos)="openSos()" (navHome)="openHome()"></app-navbar>
+      
+      <!-- Componente de navegación principal. Al estar fuera del router-outlet, se mantendrá visible de forma global en todas las vistas -->
+      <app-navbar></app-navbar>
+      
     </div>
   </div>
 </div>
 
-<app-estado-citas *ngIf="showEstadoCitasSection"></app-estado-citas>
-
-<div *ngIf="!showEstadoCitasSection">
-  <router-outlet></router-outlet>
-</div>
+<!-- Directiva de enrutamiento principal de Angular. Funciona como un contenedor dinámico donde se cargarán y renderizarán los componentes según la ruta activa en la URL -->
+<router-outlet></router-outlet>
 
 <div class="container">
   <div class="row">

@@ -1,8 +1,11 @@
 <footer class="footer">
+  <!-- Contenedor fluido de Bootstrap para ocupar todo el ancho disponible -->
   <div class="container-fluid py-5">
     <div class="row">
+      
       <!-- Columna 1: Logo -->
       <div class="col-md-3 text-center mb-4">
+        <!-- Directiva routerLink redirige a la ruta raíz (Home) sin recargar la página -->
         <a routerLink="/" class="footer-logo-link">
           <img src="/Logo-SendaV2.png" alt="Logo Senda" class="footer-logo" />
         </a>
@@ -12,6 +15,7 @@
       <div class="col-md-3">
         <h5>Menú</h5>
         <ul class="footer-links">
+          <!-- routerLink redirige dinámicamente. routerLinkActive aplica la clase CSS 'active' si la ruta de la URL coincide. [routerLinkActiveOptions]="{ exact: true }" asegura que el Home solo se marque si la ruta es exactamente '/' -->
           <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a></li>
           <li><a routerLink="/ficha-medica" routerLinkActive="active">Ficha Médica</a></li>
           <li><a routerLink="/estado-citas" routerLinkActive="active">Citas Médicas</a></li>
@@ -23,6 +27,7 @@
       <div class="col-md-3">
         <h5>Sobre Nosotros</h5>
         <ul class="footer-links">
+          <!-- Se mantienen con href="#" temporalmente, ya que actúan como marcadores de posición para rutas que aún no están definidas en app.routes.ts -->
           <li><a href="#">Sobre nosotros</a></li>
           <li><a href="#">Servicios</a></li>
           <li><a href="#">Blog</a></li>
@@ -34,6 +39,7 @@
       <div class="col-md-3">
         <h5>Contacto</h5>
         <ul class="footer-contact">
+          <!-- Para enlaces externos (correo y URL de WhatsApp), es obligatorio el uso de 'href', ya que son peticiones que salen del ámbito del enrutador interno de Angular -->
           <li>
             <strong>Email:</strong> <a href="mailto:info@senda.com"> info@senda.com</a>
           </li>
@@ -47,7 +53,7 @@
       </div>
     </div>
 
-    <!-- Línea divisoria -->
+    <!-- Línea divisoria estructural -->
     <hr class="footer-divider" />
 
     <!-- Copyright -->

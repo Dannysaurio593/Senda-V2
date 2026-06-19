@@ -11,5 +11,5 @@ export const routes: Routes = [
   { path: 'ficha-medica', component: FichaDePaciente },
   { path: 'estado-citas', component: EstadoCitasComponent },
   { path: 'signos-vitales', component: IngresoSignos },
-  { path: '**', redirectTo: '', pathMatch: 'full' },
+  { path: '**', redirectTo: '', pathMatch: 'full' }, // Este es un wildcard para redirigir a la página de inicio si no se encuentra la ruta
 ];
