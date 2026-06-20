@@ -88,7 +88,7 @@ export class IngresoSignos {
     
     // Criterios médicos para presión arterial
     // Hipotensión: < 90/60
-    if (sistolica < 90 && diastolica < 60) {
+    if (sistolica < 90 || diastolica < 60) {
       return this.signos.colorPresionBaja;
     }
     // Hipertensión crítica: > 160/100
@@ -115,7 +115,7 @@ export class IngresoSignos {
     
     if (isNaN(sistolica) || isNaN(diastolica)) return '';
     
-    if (sistolica < 90 && diastolica < 60) {
+    if (sistolica < 90 || diastolica < 60) {
       return '(Alerta: Hipotensión)';
     } else if (sistolica > 160 || diastolica > 100) {
       return '(⚠️ Alerta: Hipertensión Crítica - Llamar médico)';

@@ -2,49 +2,75 @@ import { Component, ChangeDetectorRef, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { timer } from 'rxjs';
-// 1. Importa el componente hijo (verifica que la ruta sea correcta según tus carpetas)
 import { ReportePacienteComponent } from '../reporte-paciente/reporte-paciente';
+import { PacienteService } from '../services/paciente.service';
 
+// ==========================================
+// COMPONENTE PADRE: Ficha de Paciente
+// ==========================================
+// Este componente actúa como contenedor principal (Padre).
+// 1. Obtiene la información del PacienteService al inicializarse.
+// 2. Realiza two-way data binding ([(ngModel)]) en su formulario HTML.
+// 3. Envía los datos hacia el componente Hijo (<app-reporte-paciente>) usando @Input.
+// 4. Escucha eventos emitidos por el Hijo usando @Output (fichaguardada).
 @Component({
   selector: 'app-ficha-de-paciente',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReportePacienteComponent], // 2. Añade FormsModule para two-way binding
+  imports: [CommonModule, FormsModule, ReportePacienteComponent],
   templateUrl: './ficha-de-paciente.html',
   styleUrl: './ficha-de-paciente.css',
 })
 export class FichaDePaciente implements OnInit {
   
-  constructor(private cdr: ChangeDetectorRef) {}
-  // IMPORTANTE: Properties que se mostrarán en el HTML usando Interpolation ({{ }})
-  // Cuando cambio estos valores aquí, se actualizan automáticamente en la pantalla
-  // Ejemplo: {{ nombrePaciente }} muestra 'Carlos Eduardo Mendoza'
+  // ==========================================
+  // PROPIEDADES / ESTADO LOCAL
+  // ==========================================
+  nombrePaciente: string = '';
+  codigoExpediente: string = '';
+  edad: number = 0;
+  tipoSangre: string = '';
   
-  // DATOS GENERALES DEL PACIENTE
-  nombrePaciente: string = 'Carlos Eduardo Mendoza';
-  codigoExpediente: string = 'SENDA-2026-8834';
-  edad: number = 35;  // Usada en directiva [ngClass] para alerta de edad
-  tipoSangre: string = 'O Positivo (O+)';  // Usada en directiva [ngStyle]
+  contactoEmergencia: string = '';
+  telefonoEmergencia: string = '';
   
-  // DATOS MÉDICOS CRÍTICOS
-  contactoEmergencia: string = 'María Laura Mendoza (Esposa)';
-  telefonoEmergencia: string = '098 765 4321';
-  
-  // SEGUIMIENTO DEL DÍA
   fechaActual: string = '';
-  proximaCita: string = 'Lunes 25 de Mayo - 10:00 AM';
+  proximaCita: string = '';
 
-  // IMPORTANTE: Colores dinámicos para alertas de la ficha - seleccionables visualmente
-  colorEdadAlta: string = '#d32f2f';        // Rojo por defecto (Edad > 65)
-  colorEdadNormal: string = '#2E5481';      // Azul por defecto (Edad <= 65)
-  colorSangreOPositivo: string = '#ff6b6b'; // Rosa por defecto (Sangre O+)
-  colorSangreOtros: string = '#d32f2f';     // Rojo por defecto (Otros grupos)
+  // Configuración de colores usada dinámicamente en directivas [ngClass]/[ngStyle] del template
+  colorEdadAlta: string = '#d32f2f';        
+  colorEdadNormal: string = '#2E5481';      
+  colorSangreOPositivo: string = '#ff6b6b'; 
+  colorSangreOtros: string = '#d32f2f';     
   
-  // Mensaje de confirmación cuando se guarda la ficha
+  // Estado para el modal de confirmación
   mensajeGuardado: string = '';
   mostrarMensaje: boolean = false;
   
+  // ==========================================
+  // INYECCIÓN DE DEPENDENCIAS
+  // ==========================================
+  // ChangeDetectorRef: Fuerza a Angular a verificar cambios en la vista si ocurren asíncronamente.
+  // PacienteService: Proveedor global de la información compartida del paciente.
+  constructor(
+    private cdr: ChangeDetectorRef,
+    private pacienteService: PacienteService
+  ) {}
+  
+  // ==========================================
+  // CICLO DE VIDA: Inicialización del Componente
+  // ==========================================
   ngOnInit() {
-    // Asigna la fecha actual dinámicamente en formato español
+    // 1. Recuperamos los datos del paciente almacenados en el servicio global.
+    const datos = this.pacienteService.getPaciente();
+    this.nombrePaciente = datos.nombrePaciente;
+    this.codigoExpediente = datos.codigoExpediente;
+    this.edad = datos.edad;
+    this.tipoSangre = datos.tipoSangre;
+    this.contactoEmergencia = datos.contactoEmergencia;
+    this.telefonoEmergencia = datos.telefonoEmergencia;
+    this.proximaCita = datos.proximaCita;
+
+    // 2. Establecemos la fecha de hoy con el formato local en español.
     this.fechaActual = new Date().toLocaleDateString('es-ES', { 
       year: 'numeric', 
       month: 'long', 
@@ -52,19 +78,26 @@ export class FichaDePaciente implements OnInit {
     });
   }
   
-  // Método que el padre ejecuta cuando el hijo emite el evento
+  // ==========================================
+  // MANEJADOR DE EVENTO (@Output)
+  // ==========================================
+  // Este método responde cuando el componente Hijo (<app-reporte-paciente>)
+  // emite el evento 'fichaguardada'. Recibe los datos y los envía al servicio.
   onFichaGuardada(datos: any) {
-    console.log('Evento recibido:', datos);
+    // 1. Guardamos de forma persistente los nuevos datos en el servicio global
+    this.pacienteService.updatePaciente(datos);
+
+    // 2. Desplegamos el aviso en pantalla
     this.mensajeGuardado = `✅ Datos de ${datos.nombrePaciente} guardados exitosamente!`;
     this.mostrarMensaje = true;
     this.cdr.markForCheck(); // Fuerza detección de cambios
     
-    // Ocultar el mensaje después de 3 segundos (3000ms de animación de salida)
+    // 3. Ocultamos el modal automáticamente después de 3 segundos
     timer(3000).subscribe(() => {
-      console.log('Timer terminado, ocultando modal');
       this.mostrarMensaje = false;
       this.cdr.markForCheck(); // Fuerza detección de cambios
     });
   }
-
 }
+
+

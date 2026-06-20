@@ -5,19 +5,19 @@
       <img src="https://i.pravatar.cc/150?u=patricio" alt="Perfil" class="profile-img me-3 shadow-sm">
       <div>
         <p class="text-muted mb-0 small">Hola,</p>
-        <h5 class="fw-bold m-0 text-dark">Carlos Eduardo Mendoza</h5>
+        <h5 class="fw-bold m-0 text-dark">{{ paciente?.nombrePaciente }}</h5>
       </div>
     </div>
   </div>
 
   <div class="appointment-card p-3 mb-4 d-flex align-items-center shadow-sm">
     <div class="icon-box me-3">
-      <i class="fa-solid fa-calendar-day fs-3" style="color: #1e4570;"></i>
+        <i class="bi bi-calendar-date fs-3" style="color: #1e4570;"></i>
     </div>
     <div>
       <p class="text-muted mb-0 small fw-bold">Próxima cita: Cardiología</p>
       <p class="text-muted mb-0 small fw-bold">En revisión</p>
-      <p class="m-0 fw-bold small text-dark">Lunes, 25 de mayo de 2026</p>
+      <p class="m-0 fw-bold small text-dark">{{ paciente?.proximaCita }}</p>
       <p class="m-0 text-primary small">10H00 - Hospital Alcívar</p>
     </div>
   </div>
@@ -27,25 +27,25 @@
   <div class="row g-3 mb-4">
     <div class="col-6">
       <div class="service-tile p-3 text-center shadow-sm">
-        <i class="fa-solid fa-calendar-check fs-2 mb-2 text-primary"></i>
+        <i class="bi bi-calendar-check fs-2 mb-2 text-primary"></i>
         <p class="small fw-bold m-0">AGENDAMIENTO DE CITAS</p>
       </div>
     </div>
     <div class="col-6">
       <div class="service-tile p-3 text-center shadow-sm">
-        <i class="fa-solid fa-microscope fs-2 mb-2 text-primary"></i>
+        <i class="bi bi-eyedropper fs-2 mb-2 text-primary"></i>
         <p class="small fw-bold m-0 text-uppercase">Resultados de laboratorio</p>
       </div>
     </div>
     <div class="col-6">
       <div class="service-tile p-3 text-center shadow-sm">
-        <i class="fa-solid fa-person-running fs-2 mb-2 text-primary"></i>
+        <i class="bi bi-person-walking fs-2 mb-2 text-primary"></i>
         <p class="small fw-bold m-0 text-uppercase">Contador de pasos y calorías</p>
       </div>
     </div>
     <div class="col-6">
       <div class="service-tile p-3 text-center shadow-sm">
-        <i class="fa-solid fa-heart-pulse fs-2 mb-2 text-primary"></i>
+        <i class="bi bi-heart-pulse fs-2 mb-2 text-primary"></i>
         <p class="small fw-bold m-0 text-uppercase">Frecuencia cardíaca</p>
       </div>
     </div>

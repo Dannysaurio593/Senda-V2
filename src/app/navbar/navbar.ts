@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
@@ -10,23 +10,8 @@ import { RouterModule } from '@angular/router';
   styleUrl: './navbar.css',
 })
 export class Navbar {
-  @Input() seccionActiva: string = 'ficha';
-  @Output() alCambiarPantalla = new EventEmitter<string>();
-  
   isDropdownOpen = false;
   private closeTimeout: any;
-
-  mostrarHome() {
-    this.alCambiarPantalla.emit('home');
-  }
-
-  mostrarFicha() {
-    this.alCambiarPantalla.emit('ficha');
-  }
-
-  mostrarSignos() {
-    this.alCambiarPantalla.emit('signos');
-  }
 
   toggleDropdown() {
     this.isDropdownOpen = !this.isDropdownOpen;
@@ -45,3 +30,4 @@ export class Navbar {
     }, 200);
   }
 }
+
