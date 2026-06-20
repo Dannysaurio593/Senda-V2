@@ -1,4 +1,4 @@
-import { Component, ChangeDetectorRef } from '@angular/core';
+import { Component, ChangeDetectorRef, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { timer } from 'rxjs';
@@ -12,7 +12,7 @@ import { ReportePacienteComponent } from '../reporte-paciente/reporte-paciente';
   templateUrl: './ficha-de-paciente.html',
   styleUrl: './ficha-de-paciente.css',
 })
-export class FichaDePaciente {
+export class FichaDePaciente implements OnInit {
   
   constructor(private cdr: ChangeDetectorRef) {}
   // IMPORTANTE: Properties que se mostrarán en el HTML usando Interpolation ({{ }})
@@ -30,7 +30,7 @@ export class FichaDePaciente {
   telefonoEmergencia: string = '098 765 4321';
   
   // SEGUIMIENTO DEL DÍA
-  fechaActual: string = '21 de Mayo, 2026';
+  fechaActual: string = '';
   proximaCita: string = 'Lunes 25 de Mayo - 10:00 AM';
 
   // IMPORTANTE: Colores dinámicos para alertas de la ficha - seleccionables visualmente
@@ -43,16 +43,25 @@ export class FichaDePaciente {
   mensajeGuardado: string = '';
   mostrarMensaje: boolean = false;
   
+  ngOnInit() {
+    // Asigna la fecha actual dinámicamente en formato español
+    this.fechaActual = new Date().toLocaleDateString('es-ES', { 
+      year: 'numeric', 
+      month: 'long', 
+      day: 'numeric' 
+    });
+  }
+  
   // Método que el padre ejecuta cuando el hijo emite el evento
   onFichaGuardada(datos: any) {
-    console.log('Evento recibido:', datos); // Debug
+    console.log('Evento recibido:', datos);
     this.mensajeGuardado = `✅ Datos de ${datos.nombrePaciente} guardados exitosamente!`;
     this.mostrarMensaje = true;
     this.cdr.markForCheck(); // Fuerza detección de cambios
     
-    // Ocultar el mensaje después de 3.4 segundos (3000ms + 400ms de animación de salida)
-    timer(3400).subscribe(() => {
-      console.log('Timer terminado, ocultando modal'); // Debug
+    // Ocultar el mensaje después de 3 segundos (3000ms de animación de salida)
+    timer(3000).subscribe(() => {
+      console.log('Timer terminado, ocultando modal');
       this.mostrarMensaje = false;
       this.cdr.markForCheck(); // Fuerza detección de cambios
     });
