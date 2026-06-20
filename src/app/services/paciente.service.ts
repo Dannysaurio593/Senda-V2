@@ -29,7 +29,7 @@ export class PacienteService {
     tipoSangre: 'O Positivo (O+)',
     contactoEmergencia: 'María Laura Mendoza (Esposa)',
     telefonoEmergencia: '098 765 4321',
-    proximaCita: 'Lunes 25 de Mayo - 10:00 AM'
+    proximaCita: 'Viernes 3 de Julio de 2026 - 10H00'
   };
 
   private paciente: Paciente;

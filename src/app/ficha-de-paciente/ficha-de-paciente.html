@@ -61,13 +61,13 @@
             <!-- Próxima Cita -->
             <div class="mb-3">
               <label for="cita" class="form-label fw-bold">Próxima Cita:</label>
-              <input type="text" class="form-control" id="cita" [(ngModel)]="proximaCita" name="proximaCita" placeholder="Ej: Lunes 25 de Mayo - 10:00 AM">
+              <input type="text" class="form-control" id="cita" [(ngModel)]="proximaCita" name="proximaCita" placeholder="Ej: Lunes 22 de Junio de 2026 - 10H00">
             </div>
           </form>
         </div>
         
         <div class="card-footer text-center py-2" style="font-size: 0.85rem; background-color: #F4F4F4; color: #5A6B7B;">
-          Los cambios se reflejan en tiempo real ⚡ (Two-way Binding con ngModel)
+          Los cambios se reflejan en tiempo real mediante Two-way Binding con ngModel
         </div>
       </div>
     </div>
@@ -77,16 +77,18 @@
   <div class="row justify-content-center mt-4">
     <div class="col-md-6">
       <!-- MODAL LIGHTBOX - Mensaje de Confirmación con animación -->
-      <div *ngIf="mostrarMensaje" class="modal-backdrop-senda">
-        <div class="modal-content-senda">
-          <div class="text-center">
-            <div class="display-1 mb-3" style="font-size: 3rem;">✅</div>
-            <h4 class="fw-bold mb-3" style="color: #2E5481;">¡Éxito!</h4>
-            <p class="fs-6" style="color: #555;">{{ mensajeGuardado }}</p>
-            <p class="small mt-4" style="color: #999;">Desaparecerá en 3 segundos...</p>
+      @if (mostrarMensaje) {
+        <div class="modal-backdrop-senda">
+          <div class="modal-content-senda">
+            <div class="text-center">
+              <div class="display-1 mb-3" style="font-size: 3rem;">✅</div>
+              <h4 class="fw-bold mb-3" style="color: #2E5481;">¡Éxito!</h4>
+              <p class="fs-6" style="color: #555;">{{ mensajeGuardado }}</p>
+              <p class="small mt-4" style="color: #999;">Desaparecerá en 3 segundos...</p>
+            </div>
           </div>
         </div>
-      </div>
+      }
       
       <app-reporte-paciente 
         [nombrePaciente]="nombrePaciente"

@@ -198,8 +198,10 @@
   </div>
 
   <!-- TICKET CLÍNICO DIGITAL MODAL (Opción 1: Glassmorphism & Custom Ticket) -->
-  <div *ngIf="mostrarModalTicket" class="modal-backdrop-senda-ticket">
-    <div class="modal-content-senda-ticket animate-pop-in" [ngClass]="obtenerNivelRiesgo()">
+  <div *ngIf="mostrarModalTicket" class="modal-backdrop-senda-ticket" (click)="cerrarModalTicket()">
+    <div class="modal-content-senda-ticket animate-pop-in" [ngClass]="obtenerNivelRiesgo()" (click)="$event.stopPropagation()">
+      <!-- Botón de cerrar "X" en la esquina superior derecha -->
+      <button type="button" class="btn-close-ticket" (click)="cerrarModalTicket()" aria-label="Cerrar modal">&times;</button>
       <!-- Cabecera del Modal con checkmark animado -->
       <div class="ticket-header-animation">
         <div class="success-checkmark-circle" [ngClass]="obtenerNivelRiesgo()">
