@@ -177,11 +177,130 @@
             </div>
           </div>
 
-          <button class="btn w-100 fw-bold mt-3" style="background-color: #00A4D3; color: white; border: none;">Enviar Reporte a Senda Clínicas</button>
+          <!-- Botón de Envío con indicador de carga dinámico -->
+          <button class="btn w-100 fw-bold mt-3 d-flex align-items-center justify-content-center gap-2 send-btn" 
+                  [disabled]="enviando" 
+                  (click)="enviarReporte()"
+                  style="background-color: #00A4D3; color: white; border: none; min-height: 48px; transition: all 0.3s ease;">
+            <ng-container *ngIf="!enviando">
+              <span>📤 Enviar Reporte a Senda Clínicas</span>
+            </ng-container>
+            <ng-container *ngIf="enviando">
+              <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+              <span>{{ progresoTexto }}</span>
+            </ng-container>
+          </button>
 
         </div>
       </div>
     </div>
 
   </div>
+
+  <!-- TICKET CLÍNICO DIGITAL MODAL (Opción 1: Glassmorphism & Custom Ticket) -->
+  <div *ngIf="mostrarModalTicket" class="modal-backdrop-senda-ticket">
+    <div class="modal-content-senda-ticket animate-pop-in" [ngClass]="obtenerNivelRiesgo()">
+      <!-- Cabecera del Modal con checkmark animado -->
+      <div class="ticket-header-animation">
+        <div class="success-checkmark-circle" [ngClass]="obtenerNivelRiesgo()">
+          <span class="success-checkmark-icon">✓</span>
+        </div>
+      </div>
+      
+      <!-- Título y Subtítulo -->
+      <h4 class="fw-bold mt-3 mb-1 text-dark">¡Reporte Transmitido!</h4>
+      <p class="text-muted small mb-3">Sincronización en tiempo real con Senda Clínicas completada.</p>
+      
+      <!-- El Ticket Médico -->
+      <div class="digital-ticket-container shadow-sm">
+        <div class="ticket-top-border"></div>
+        
+        <!-- Detalle de estado con badge dinámico -->
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <span class="text-muted small fw-bold">ESTADO CLÍNICO:</span>
+          <span class="badge-riesgo text-uppercase" [ngClass]="obtenerNivelRiesgo()">
+            <span *ngIf="obtenerNivelRiesgo() === 'estable'">🟢 Estable</span>
+            <span *ngIf="obtenerNivelRiesgo() === 'atencion'">🟡 Atención Requerida</span>
+            <span *ngIf="obtenerNivelRiesgo() === 'critico'">🔴 Alerta Crítica</span>
+          </span>
+        </div>
+        
+        <hr class="ticket-divider">
+        
+        <!-- Resumen de Signos Vitales Transmitidos -->
+        <div class="ticket-details mb-3">
+          <div class="ticket-row">
+            <span class="label">Presión Arterial:</span>
+            <span class="value fw-bold text-dark">{{ signos.presionArterial }} mmHg</span>
+          </div>
+          <div class="ticket-row">
+            <span class="label">Temperatura:</span>
+            <span class="value fw-bold text-dark">{{ signos.temperatura }} °C</span>
+          </div>
+          <div class="ticket-row">
+            <span class="label">Ritmo Cardíaco:</span>
+            <span class="value fw-bold text-dark">{{ signos.pulso }} ppm</span>
+          </div>
+          <div class="ticket-row">
+            <span class="label">Estado de Ánimo:</span>
+            <span class="value fw-bold text-dark">{{ obtenerEmojiEstadoAnimo() }}</span>
+          </div>
+          <!-- IMPORTANTE: Muestra las notas o síntomas ingresados manualmente -->
+          <div class="mt-2 pt-2 border-top" *ngIf="signos.notasSintomas">
+            <span class="d-block mb-1" style="font-size: 0.75rem; color: #64748b; font-weight: 500;">Síntomas / Notas:</span>
+            <span class="d-block text-dark fst-italic p-2 rounded" style="font-size: 0.8rem; font-weight: 600; line-height: 1.35; background: #f8fafc; border: 1px solid #e2e8f0; word-break: break-word;">
+              "{{ signos.notasSintomas }}"
+            </span>
+          </div>
+        </div>
+        
+        <hr class="ticket-divider">
+        
+        <!-- Recomendaciones Médicas Inteligentes -->
+        <div class="ticket-recommendation-box p-3 rounded mb-3 text-start" [ngClass]="obtenerNivelRiesgo()">
+          <h6 class="fw-bold mb-1 text-uppercase" style="font-size: 0.72rem; letter-spacing: 0.5px; color: #5A6B7B;">
+            Recomendación Asistencia:
+          </h6>
+          <p class="mb-0 small" style="color: #333; line-height: 1.4; font-size: 0.8rem;">
+            {{ obtenerMensajeRiesgo() }}
+          </p>
+        </div>
+        
+        <!-- ID y Metadatos de Seguridad -->
+        <div class="ticket-meta pt-2 border-top text-start small">
+          <div class="d-flex justify-content-between text-muted" style="font-size: 0.7rem;">
+            <span>ID Transacción:</span>
+            <span class="fw-mono text-dark">{{ idTransaccion }}</span>
+          </div>
+          <div class="d-flex justify-content-between text-muted" style="font-size: 0.7rem; margin-top: 2px;">
+            <span>Sello Digital:</span>
+            <span class="fw-mono text-success">SHA256 SECURE VERIFIED</span>
+          </div>
+          <div class="d-flex justify-content-between text-muted" style="font-size: 0.7rem; margin-top: 2px;">
+            <span>Fecha Envío:</span>
+            <span class="text-dark">{{ fechaEnvio }}</span>
+          </div>
+        </div>
+        
+        <div class="ticket-bottom-border"></div>
+      </div>
+      
+      <!-- Botones de Acción del Modal -->
+      <div class="d-flex flex-column gap-2 w-100 mt-3">
+        <button class="btn btn-outline-primary d-flex align-items-center justify-content-center gap-2 btn-comprobante py-2" style="font-size: 0.9rem;" (click)="cerrarModalTicket()">
+          <span>📥 Descargar Comprobante</span>
+        </button>
+        
+        <!-- Botón de SOS visible solo si es Alerta Crítica -->
+        <a *ngIf="obtenerNivelRiesgo() === 'critico'" routerLink="/sos" class="btn btn-danger py-2 fw-bold animate-pulse-btn" style="font-size: 0.9rem;" (click)="cerrarModalTicket()">
+          🚨 ACTIVAR PROTOCOLO SOS
+        </a>
+        
+        <button class="btn btn-secondary py-2" style="font-size: 0.9rem;" (click)="cerrarModalTicket()">
+          Entendido
+        </button>
+      </div>
+    </div>
+  </div>
+
 </div>

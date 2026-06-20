@@ -11,3 +11,259 @@
   transition: background-color 0.3s ease;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+
+/* ==========================================================
+   MODAL GLASSMORPHISM & TICKET DIGITAL
+   ========================================================== */
+
+/* Fondo con efecto desenfoque premium */
+.modal-backdrop-senda-ticket {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(15, 23, 42, 0.45); /* Azul grisáceo translúcido */
+  backdrop-filter: blur(12px) saturate(130%);
+  -webkit-backdrop-filter: blur(12px) saturate(130%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  padding: 20px;
+}
+
+/* Tarjeta contenedora del modal */
+.modal-content-senda-ticket {
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 24px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  max-width: 440px;
+  width: 100%;
+  padding: 30px 24px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Bordes superiores de colores sutiles según el riesgo */
+.modal-content-senda-ticket.estable {
+  border-top: 5px solid #2e7d32;
+}
+.modal-content-senda-ticket.atencion {
+  border-top: 5px solid #ef6c00;
+}
+.modal-content-senda-ticket.critico {
+  border-top: 5px solid #c62828;
+}
+
+/* Checkmark animado moderno */
+.success-checkmark-circle {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  font-size: 2.2rem;
+  font-weight: bold;
+  position: relative;
+}
+
+.success-checkmark-circle.estable {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+  box-shadow: 0 0 0 8px rgba(46, 125, 50, 0.1);
+  animation: pulse-green 2s infinite;
+}
+
+.success-checkmark-circle.atencion {
+  background-color: #fff3e0;
+  color: #ef6c00;
+  box-shadow: 0 0 0 8px rgba(239, 108, 0, 0.1);
+  animation: pulse-orange 2s infinite;
+}
+
+.success-checkmark-circle.critico {
+  background-color: #ffebee;
+  color: #c62828;
+  box-shadow: 0 0 0 8px rgba(198, 40, 40, 0.1);
+  animation: pulse-red 1.5s infinite;
+}
+
+/* Ticket de Recibo Clínico Digital */
+.digital-ticket-container {
+  background: #ffffff;
+  border: 1px dashed #e2e8f0;
+  border-radius: 16px;
+  padding: 20px;
+  position: relative;
+  text-align: left;
+  margin: 15px 0;
+}
+
+/* Simulación de perforaciones de ticket */
+.ticket-top-border, .ticket-bottom-border {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 8px;
+  background-image: radial-gradient(circle, transparent 70%, #ffffff 70%);
+  background-size: 16px 16px;
+}
+
+.ticket-top-border {
+  top: -9px;
+  background-position: 0 8px;
+}
+
+.ticket-bottom-border {
+  bottom: -9px;
+  background-position: 0 0;
+}
+
+/* Divisor de ticket punteado */
+.ticket-divider {
+  border: none;
+  border-top: 2px dashed #cbd5e1;
+  margin: 12px 0;
+  opacity: 0.8;
+}
+
+/* Filas del ticket */
+.ticket-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+}
+
+.ticket-row .label {
+  color: #64748b;
+  font-weight: 500;
+}
+
+.ticket-row .value {
+  font-weight: 600;
+}
+
+/* Badges dinámicos de riesgo */
+.badge-riesgo {
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.badge-riesgo.estable {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+.badge-riesgo.atencion {
+  background-color: #fff3e0;
+  color: #ef6c00;
+}
+
+.badge-riesgo.critico {
+  background-color: #ffebee;
+  color: #c62828;
+}
+
+/* Caja de recomendaciones dinámicas del asistente */
+.ticket-recommendation-box {
+  border-left: 4px solid #64748b;
+}
+
+.ticket-recommendation-box.estable {
+  border-color: #4caf50;
+  background-color: #f4fbf4;
+}
+
+.ticket-recommendation-box.atencion {
+  border-color: #ff9800;
+  background-color: #fffcf5;
+}
+
+.ticket-recommendation-box.critico {
+  border-color: #d32f2f;
+  background-color: #fdf5f5;
+}
+
+/* Animaciones */
+.animate-pop-in {
+  animation: popIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes popIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.9) translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Pulso del Checkmark */
+@keyframes pulse-green {
+  0% { box-shadow: 0 0 0 0 rgba(46, 125, 50, 0.4); }
+  70% { box-shadow: 0 0 0 12px rgba(46, 125, 50, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(46, 125, 50, 0); }
+}
+
+@keyframes pulse-orange {
+  0% { box-shadow: 0 0 0 0 rgba(239, 108, 0, 0.4); }
+  70% { box-shadow: 0 0 0 12px rgba(239, 108, 0, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(239, 108, 0, 0); }
+}
+
+@keyframes pulse-red {
+  0% { box-shadow: 0 0 0 0 rgba(198, 40, 40, 0.5); }
+  70% { box-shadow: 0 0 0 14px rgba(198, 40, 40, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(198, 40, 40, 0); }
+}
+
+/* Pulso de botón SOS crítico */
+.animate-pulse-btn {
+  animation: pulse-sos-btn 1.5s infinite;
+}
+
+@keyframes pulse-sos-btn {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.7);
+  }
+  70% {
+    transform: scale(1.02);
+    box-shadow: 0 0 0 10px rgba(220, 53, 69, 0);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(220, 53, 69, 0);
+  }
+}
+
+/* Botón de comprobante hover */
+.btn-comprobante {
+  border-color: #2E5481;
+  color: #2E5481;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.btn-comprobante:hover {
+  background-color: #2E5481;
+  color: #ffffff;
+}
+
+/* Animación del botón enviar en progreso */
+.send-btn:disabled {
+  background-color: #0d8cae !important;
+  opacity: 0.9;
+  cursor: not-allowed;
+}
+

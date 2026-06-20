@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';  // Necesario para [(ngModel)] - Two-Way Binding
 
@@ -15,6 +15,16 @@ export class IngresoSignos {
   // - Cuando cambia el valor aquí → se actualiza en el input
   // Necesito FormsModule importado para que ngModel funcione
   
+  // Variables para la simulación de envío y el ticket digital
+  enviando = false;
+  progresoTexto = '';
+  mostrarModalTicket = false;
+  fechaEnvio = '';
+  idTransaccion = '';
+
+  // Inyección de ChangeDetectorRef para entornos zoneless
+  constructor(private cdr: ChangeDetectorRef) {}
+
   // Objeto que agrupa todos los signos vitales del paciente
   signos = {
     presionArterial: '120/80',   // Vinculado con [(ngModel)] en input
@@ -123,5 +133,105 @@ export class IngresoSignos {
       return '(Alerta: Hipertensión)';
     }
     return '';
+  }
+
+  // ==========================================
+  // METODOS DEL FEEDBACK DE ENVIO (TICKET CLINICO)
+  // ==========================================
+
+  enviarReporte() {
+    if (this.enviando) return;
+    this.enviando = true;
+    
+    // Establecer fecha de envío formateada
+    this.fechaEnvio = new Date().toLocaleDateString('es-ES', { 
+      year: 'numeric', 
+      month: 'long', 
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit'
+    });
+    
+    // Generar un ID de transacción aleatorio/seguro
+    const randomHex = Math.random().toString(16).substring(2, 14).toUpperCase();
+    this.idTransaccion = `SND-${new Date().getFullYear()}-${randomHex}`;
+
+    // Simular el proceso en cascada
+    this.progresoTexto = 'Preparando reporte clínico...';
+    this.cdr.markForCheck();
+    
+    setTimeout(() => {
+      this.progresoTexto = 'Cifrando signos vitales (SHA-256)...';
+      this.cdr.markForCheck();
+      
+      setTimeout(() => {
+        this.progresoTexto = 'Sincronizando con Senda Clínicas...';
+        this.cdr.markForCheck();
+        
+        setTimeout(() => {
+          this.enviando = false;
+          this.progresoTexto = '';
+          this.mostrarModalTicket = true;
+          this.cdr.markForCheck();
+        }, 800);
+        
+      }, 700);
+      
+    }, 600);
+  }
+
+  cerrarModalTicket() {
+    this.mostrarModalTicket = false;
+    this.cdr.markForCheck();
+  }
+
+  obtenerNivelRiesgo(): 'estable' | 'atencion' | 'critico' {
+    const temp = this.signos.temperatura;
+    const pulso = this.signos.pulso;
+    const partes = this.signos.presionArterial.split('/');
+    
+    let sistolica = 120;
+    let diastolica = 80;
+    let presionValida = false;
+    
+    if (partes.length === 2) {
+      sistolica = parseInt(partes[0], 10);
+      diastolica = parseInt(partes[1], 10);
+      if (!isNaN(sistolica) && !isNaN(diastolica)) {
+        presionValida = true;
+      }
+    }
+
+    // Rangos críticos
+    const tempCritica = temp > 40 || temp < 35.5;
+    const pulsoCritico = pulso > 120 || pulso < 50;
+    const presionCritica = presionValida && (sistolica > 160 || diastolica > 100 || sistolica < 90 || diastolica < 60);
+
+    if (tempCritica || pulsoCritico || presionCritica) {
+      return 'critico';
+    }
+
+    // Rangos de atención/precaución
+    const tempAtencion = (temp >= 38 && temp <= 40) || (temp >= 35.5 && temp < 36);
+    const pulsoAtencion = (pulso > 100 && pulso <= 120) || (pulso >= 50 && pulso < 60);
+    const presionAtencion = presionValida && (sistolica >= 140 || diastolica >= 90);
+    const animoCritico = this.signos.estadoAnimo === 'muy_mal';
+
+    if (tempAtencion || pulsoAtencion || presionAtencion || animoCritico) {
+      return 'atencion';
+    }
+
+    return 'estable';
+  }
+
+  obtenerMensajeRiesgo(): string {
+    const riesgo = this.obtenerNivelRiesgo();
+    if (riesgo === 'critico') {
+      return '🚨 Tus signos vitales actuales requieren evaluación médica prioritaria. Senda ha notificado a tu médico de cabecera y el equipo de asistencia de guardia está al tanto de tu estado.';
+    } else if (riesgo === 'atencion') {
+      return '⚠️ Hemos detectado variaciones menores fuera de tus rangos normales. Mantente en reposo, mantén una buena hidratación y vuelve a tomarte los signos en 30 minutos.';
+    }
+    return '💚 ¡Excelente! Todos tus parámetros vitales se encuentran dentro del rango de estabilidad clínica recomendado. Tu reporte ha sido archivado exitosamente.';
   }
 }
